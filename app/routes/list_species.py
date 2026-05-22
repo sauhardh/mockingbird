@@ -10,7 +10,7 @@ from . import router
 logger = logging.getLogger(__name__)
 
 
-@router.post("/sound")
+@router.post("/species")
 async def species(audio: UploadFile = File(...)):
     audio_data = await audio.read()
 
