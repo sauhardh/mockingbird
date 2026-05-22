@@ -28,7 +28,11 @@ async def species(audio: UploadFile = File(...)):
 
     logger.info(f"Audio is stored in {temp_path} temporarily")
 
-    species_data = detect_species(temp_path)
+    try:
+        species_data = detect_species(temp_path)
+    except Exception as e:
+        logger.error("Failed to detect species %s", e)
+        return {"status": "failed", "data": e}
 
     return {"status": "success", "data": species_data}
     # TODO: CLEANUP tempfile
