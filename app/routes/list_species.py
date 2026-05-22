@@ -1,12 +1,12 @@
-from fastapi import APIRouter, UploadFile, File
+from fastapi import UploadFile, File
 import tempfile
 import logging
 from pathlib import Path
 
-
 from app.utils import detect_species
+from . import router
 
-router = APIRouter()
+
 logger = logging.getLogger(__name__)
 
 
