@@ -11,3 +11,6 @@ wheels/
 
 # artifacts
 *.mp3
+
+data/
+birds_dataset.xlsx
