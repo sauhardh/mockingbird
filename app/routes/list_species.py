@@ -31,7 +31,7 @@ async def species(audio: UploadFile = File(...)):
     try:
         species_data = detect_species(temp_path)
     except Exception as e:
-        logger.error("Failed to detect species %s", e)
+        logger.exception("Failed to detect species %s", e)
         return {"status": "failed", "data": e}
 
     return {"status": "success", "data": species_data}
