@@ -42,7 +42,7 @@ def calculate_shannon_idx(species_data: list):
     for specie in species_data:
         proportion = specie["count"] / total
 
-        shannon -= proportion * math.log2(proportion)
+        shannon -= proportion * math.log(proportion)
 
     return round(shannon, 3)
 
@@ -70,12 +70,11 @@ def calculate_dominance(species_data: list):
 # NORMALIZE
 # = normalize richness score, shannon score, dominance_score
 async def normalize_score(loc, richness, shannon, dominance):
-    #  richness require total num of spcies = min(richness / 20, 1)
+    #  richness require total unique num of spcies = min(richness / 20, 1)
     #  shannon_score require ln(s) where S = number of spcies
 
     # 1. FIRST build file
     await start_querying(loc)
-
     # 2. THEN read file
     total_species = get_total_num_of_species()
 
@@ -83,13 +82,17 @@ async def normalize_score(loc, richness, shannon, dominance):
         print("ERROR: total species is 0")
         total_species = 1
 
-    # 3. compute normalization
-    sh = math.log2(total_species)
-    return (
-        min(richness / total_species, 1),
-        shannon / sh,
-        1 - dominance["dominance_score"],
-    )
+    # Richness: how close to historical baseline
+    norm_richness = min(richness / total_species, 1)
+
+    # Shannon: divide by max possible FOR DETECTED species count
+    max_shannon = math.log(richness) if richness > 1 else 1
+    norm_shannon = min(shannon / max_shannon, 1)
+
+    # Dominance: invert so high = healthy
+    norm_dominance = 1 - dominance["dominance_score"]
+
+    return (norm_richness, norm_shannon, norm_dominance)
 
 
 async def start_querying(loc: str):
