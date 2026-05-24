@@ -7,4 +7,11 @@ requires-python = ">=3.13"
 dependencies = [
     "birdnet>=0.2.5",
     "fastapi[standard]>=0.136.1",
+    "asyncpg>=0.29.0",
+    "scikit-maad>=1.4.2",
+    "noisereduce>=3.0.2",
+    "librosa>=0.10.1",
+    "scikit-learn>=1.4.0",
+    "numpy>=1.24.0",
+    "soundfile>=0.12.1",
 ]
