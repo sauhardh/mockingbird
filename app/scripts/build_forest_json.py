@@ -190,6 +190,12 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
         type=int,
         default=None,
     )
+    parser.add_argument(
+    "--latest-year",
+    action="store_true",
+    dest="latest_year",
+    help="Filter records to only the most recent year present in the data",
+    )
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--out", default=DEFAULT_OUT)
     parser.add_argument("--csv", default=DEFAULT_CSV)
@@ -205,6 +211,14 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
     parser.add_argument(
         "--native-data",
         help="Path to JSON file mapping country codes to lists of native species",
+    )
+    parser.add_argument(
+        "--habitat-data",
+        help="Path to JSON file mapping species to list of habitat strings",
+    )
+    parser.add_argument(
+        "--rarity-data",
+        help="Path to JSON file mapping species to IUCN rarity score (0‑1)",
     )
     args = parser.parse_args(argv)
 
@@ -237,6 +251,9 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
 
     detail_mode = args.detail
     native_data = None
+    habitat_data = None
+    rarity_data = None
+
     if args.native_data:
         try:
             with open(args.native_data, encoding="utf-8") as f:
@@ -244,6 +261,22 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
         except Exception as e:
             print(f"[warning] Failed to load native data: {e}")
             native_data = None
+
+    if args.habitat_data:
+        try:
+            with open(args.habitat_data, encoding="utf-8") as f:
+                habitat_data = json.load(f)
+        except Exception as e:
+            print(f"[warning] Failed to load habitat data: {e}")
+            habitat_data = None
+
+    if args.rarity_data:
+        try:
+            with open(args.rarity_data, encoding="utf-8") as f:
+                rarity_data = json.load(f)
+        except Exception as e:
+            print(f"[warning] Failed to load rarity data: {e}")
+            rarity_data = None
 
     area_field = str(filters.get("area_field", "stateProvince"))
     if area_field not in AREA_FIELDS:
@@ -254,7 +287,10 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
     return {
         "filters": filters,
         "detail": detail_mode,
+        "latest_year": args.latest_year,
         "native_data": native_data,
+        "habitat_data": habitat_data,
+        "rarity_data": rarity_data,
         "csv_path": os.path.join(SCRIPT_DIR, args.csv),
         "out_path": os.path.join(SCRIPT_DIR, args.out),
     }
@@ -353,7 +389,10 @@ def build_forest_json(
     csv_path: str | None = None,
     out_path: str | None = None,
     detail: bool = True,
+    latest_year: bool = False,
     native_data: dict | None = None,
+    habitat_data: dict | None = None,
+    rarity_data: dict | None = None,
 ) -> Any:
     """Build JSON output for forest health data.
 
@@ -373,6 +412,16 @@ def build_forest_json(
     ensure_dataset(csv_path)
     filters_no_limit = {k: v for k, v in filters.items() if k != "limit"}
     matched = filter_rows(read_csv_rows(csv_path), filters_no_limit)
+
+    if latest_year:
+        years = [y for r in matched if (y := _row_year(r)) is not None]
+        if years:
+            max_year = max(years)
+            matched = [r for r in matched if _row_year(r) == max_year]
+            print(f"[info] Filtered to latest year: {max_year} ({len(matched)} records)")
+        else:
+            print("[warn] --latest-year: no year data found in matched rows, skipping filter")
+
     rows = prepare_output_rows(matched, filters)
 
     if detail:
@@ -381,9 +430,17 @@ def build_forest_json(
         # Determine native species set for the queried country, if native_data provided
         native_set = set()
         query_country = filters.get("countryCode")
+        if not query_country and rows:
+            query_country = rows[0].get("countryCode")
         if native_data and query_country and query_country in native_data:
             native_set = set(native_data.get(query_country, []))
-        data_to_write = aggregate_rows(rows, native_set=native_set, query_country=query_country)
+        data_to_write = aggregate_rows(
+            rows,
+            native_set=native_set,
+            habitat_map=habitat_data,
+            rarity_map=rarity_data,
+            query_country=query_country,
+        )
 
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(data_to_write, f, indent=2, ensure_ascii=False)
@@ -395,19 +452,26 @@ def build_forest_json(
 def aggregate_rows(
     rows: list[dict[str, Any]],
     native_set: set | None = None,
+    habitat_map: dict | None = None,
+    rarity_map: dict | None = None,
     query_country: str | None = None,
 ) -> dict[str, Any]:
     """Aggregate rows into a summary with derived metrics.
 
     - Native flag based on ``native_set`` or matching ``query_country``.
-    - ``observation_rarity``: 1 / log(count + 10).
-    - ``geographic_specialization``: 1 - (unique_locations / max_unique_locations).
+    - ``observation_rarity``: 1 / log(count + 10), computed post-aggregation.
+    - ``geographic_specialization``: 1 / log(unique_locations + 10).
+    - ``forest_dependency``: weighted by habitat strings.
+    - ``rarity_score``: blend of observation rarity and IUCN rarity (if provided).
     """
+    WEIGHT_NATIVE = 0.4
+    WEIGHT_FDEP = 0.4
+    WEIGHT_RARITY = 0.2
+
     species_stats: dict[str, dict[str, Any]] = {}
     total_individuals = 0
-    # Track unique locations per species
     species_locations: dict[str, set[str]] = {}
-    # First pass: collect counts, native flags and location sets
+
     for row in rows:
         species = row.get("species")
         if not species:
@@ -415,53 +479,95 @@ def aggregate_rows(
         sci = row.get("scientificName")
         count = int(row.get("individualCount") or 0)
         total_individuals += count
-        # Determine nativity
+
+        # ---- Native flag ----
         is_native = False
-        if native_set is not None:
+        if native_set:
             is_native = species in native_set
         elif query_country:
             is_native = row.get("countryCode") == query_country
-        # Track location (use empty string if missing)
+
+        # ---- Location tracking ----
         loc = (row.get("locality") or "").strip()
-        if species not in species_locations:
-            species_locations[species] = set()
+        species_locations.setdefault(species, set())
         if loc:
             species_locations[species].add(loc)
-        # Initialise or update species entry
+
+        # ---- Initialise stats entry ----
         if species not in species_stats:
             species_stats[species] = {
                 "species": species,
                 "scientificName": sci,
                 "count": 0,
                 "native": False,
+                "forest_dependency": 0.0,
             }
         if is_native:
             species_stats[species]["native"] = True
         species_stats[species]["count"] += count
 
-    max_observations = max((s["count"] for s in species_stats.values()), default=1)
-    max_locations = max((len(locs) for locs in species_locations.values()), default=1)
-    # Derived metrics are calculated later using log-based formulas.
-    for sp, stats in species_stats.items():
-        cnt = stats["count"]
-        # Observation rarity (log formula)
-        stats["observation_rarity"] = 1 / math.log(cnt + 10) if cnt > 0 else 0.0
-        # Normalized rarity (0 = most common, 1 = rarest) – optional alternative
-        # stats["observation_rarity_norm"] = 1 - (cnt / max_observations) if max_observations > 0 else 0.0
-        # Geographic specialization
-        unique_locs = len(species_locations.get(sp, []))
-        stats["geographic_specialization"] = 1 / math.log(unique_locs + 10) if unique_locs > 0 else 0.0
-        # expose count of unique locations for debugging
-        stats["unique_location_count"] = unique_locs
-    native_species_count = sum(1 for s in species_stats.values() if s.get("native"))
-    summary = {
-        "total_species": len(species_stats),
-        "total_individuals": total_individuals,
+        # ---- Habitat / forest dependency ----
+        # Only needs to be set once — habitat doesn't change per row
+        if habitat_map and species_stats[species]["forest_dependency"] == 0.0:
+            habitats = habitat_map.get(species, [])
+            dep_weight = 0.0
+            for h in habitats:
+                h_low = h.lower()
+                if "forest" in h_low:
+                    dep_weight = max(dep_weight, 1.0)
+                elif "woodland" in h_low or "wood" in h_low:
+                    dep_weight = max(dep_weight, 0.8)
+                elif "shrub" in h_low or "bush" in h_low:
+                    dep_weight = max(dep_weight, 0.4)
+                else:
+                    dep_weight = max(dep_weight, 0.1)
+            species_stats[species]["forest_dependency"] = dep_weight
 
+    # ---- Post-processing: rarity and geo-specialization ----
+    # Rarity must be computed AFTER counts are fully accumulated,
+    # not per-row (which caused it to be overwritten with a partial count).
+    for sp, stats in species_stats.items():
+        unique_locs = len(species_locations.get(sp, set()))
+        stats["geographic_specialization"] = (
+            1 / math.log(unique_locs + 10) if unique_locs > 0 else 0.0
+        )
+        stats["unique_location_count"] = unique_locs
+
+        total_count = stats["count"]
+        obs_rarity = 1 / math.log(total_count + 10) if total_count > 0 else 0.0
+        iucn_score = (rarity_map.get(sp, 0.0) if rarity_map else 0.0)
+        stats["observation_rarity"] = round(obs_rarity, 6)
+        stats["rarity_score"] = round(0.7 * obs_rarity + 0.3 * iucn_score, 6)
+
+    # ---- Summary-level calculations ----
+    native_species_count = sum(1 for s in species_stats.values() if s.get("native"))
+    total_species = len(species_stats)
+    native_ratio = native_species_count / total_species if total_species else 0.0
+    avg_fdep = (
+        sum(s["forest_dependency"] for s in species_stats.values()) / total_species
+        if total_species else 0.0
+    )
+    avg_rarity = (
+        sum(s["rarity_score"] for s in species_stats.values()) / total_species
+        if total_species else 0.0
+    )
+    forest_health_index = (
+        WEIGHT_NATIVE * native_ratio
+        + WEIGHT_FDEP * avg_fdep
+        + WEIGHT_RARITY * avg_rarity
+    )
+
+    return {
+        "total_species": total_species,
+        "total_individuals": total_individuals,
+        "native_ratio": round(native_ratio, 6),
+        "native_species_count": native_species_count,
+        "native_percentage": round(native_ratio * 100.0, 4),
+        "avg_forest_dependency": round(avg_fdep, 6),
+        "avg_rarity": round(avg_rarity, 6),
+        "forest_health_index": round(forest_health_index, 6),
         "species_stats": list(species_stats.values()),
     }
-    return summary
-
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -471,7 +577,10 @@ def main(argv: list[str] | None = None) -> None:
         csv_path=config["csv_path"],
         out_path=config["out_path"],
         detail=config["detail"],
+        latest_year=config["latest_year"],
         native_data=config["native_data"],
+        habitat_data=config["habitat_data"],
+        rarity_data=config["rarity_data"],
     )
     if isinstance(rows, list):
         print(f"[ok] Wrote {config['out_path']} ({len(rows)} records)")

@@ -33,7 +33,14 @@ async def species(audio: UploadFile = File(...)):
         species_data = [Species.from_row(row) for row in raw_data]
     except Exception as e:
         logger.exception("Failed to detect species %s", e)
-        return {"status": "failed", "data": e}
+        return {"status": "failed", "data": str(e)}
+    finally:
+        import os
+        if temp_path and os.path.exists(temp_path):
+            try:
+                os.unlink(temp_path)
+                logger.info(f"Cleaned up temp file: {temp_path}")
+            except Exception as cleanup_err:
+                logger.warning(f"Failed to delete temp file {temp_path}: {cleanup_err}")
 
     return {"status": "success", "data": species_data}
-    # TODO: CLEANUP tempfile

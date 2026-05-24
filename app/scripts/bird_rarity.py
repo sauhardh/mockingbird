@@ -1,9 +1,10 @@
 import csv
 import os
+import json
 from functools import lru_cache
 
 # Path to the CSV file containing bird data. Adjust if the file location changes.
-CSV_PATH = os.path.join(os.path.dirname(__file__), 'nepal-species.csv')
+CSV_PATH = os.path.join(os.path.dirname(__file__), 'Nepal-Species.csv')
 
 @lru_cache(maxsize=1)
 def _load_data():
@@ -86,3 +87,31 @@ if __name__ == "__main__":
         print(f"Rarity of {example_name}: {get_bird_rarity(example_name)}")
     except Exception as e:
         print(e)
+
+
+def load_species_db_from_forest_json(json_path: str) -> dict:
+    """Load the forest JSON and return a species -> traits dict for ecological metrics."""
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    db = {}
+    
+    # Handle both format: list of records (if detail=True) or summary dict (if detail=False)
+    species_list = data if isinstance(data, list) else data.get("species_stats", [])
+    
+    for s in species_list:
+        name = s.get("species") or s.get("scientificName") or s.get("scientific_name")
+        if not name:
+            continue
+        
+        # Clean name if it has authorship (e.g. "Passer domesticus (Linnaeus, 1758)" -> "Passer domesticus")
+        clean_name = name.strip()
+        if "(" in clean_name:
+            clean_name = clean_name.split("(")[0].strip()
+        
+        db[clean_name] = {
+            "native": s.get("native", False),
+            "forest_dependency": s.get("forest_dependency", 0.5),
+            "rarity": s.get("rarity_score", 0.5),
+        }
+    return db
+
