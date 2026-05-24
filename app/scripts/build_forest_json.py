@@ -1,32 +1,5 @@
 """
-scripts/build_forest_json.py
-DESCRIPTION:
-1. Checks if the dataset CSV is present; if not, runs download_dataset.py first.
-2. Filters records by the provided parameters.
-3. Writes a slim JSON list for RAG/LLM: species, locality, and light geographic
-   context only (deduplicated by species + locality).
-
-USAGE:
-  uv run scripts/build_forest_json.py [OPTIONS]
-  uv run scripts/build_forest_json.py --params filters.json
-
-OPTIONS (CLI flags; API names in parentheses):
-  --area                  Filter by locality, stateProvince, or countryCode
-  --area-field            Field used for --area  [default: stateProvince]
-  --species               Species name substring match
-  --locality              Locality substring match
-  --state, --state-province   stateProvince substring match
-  --country, --country-code   countryCode substring match
-  --min-count, --min-individual-count   Minimum individualCount  [default: 0]
-  --limit                 Max rows after filtering  [default: all]
-  --out                   Output JSON filename  [default: forest_health_input.json]
-  --params                JSON file path or "-" for stdin (API parameter names)
-
-API / JSON keys (--params):
-  area, area_field, species, locality, stateProvince, countryCode,
-  min_individual_count, limit
-
-EXAMPLES:
+usage: 
   uv run scripts/build_forest_json.py --area Bagmati
   uv run scripts/build_forest_json.py --locality Kathmandu
   uv run scripts/build_forest_json.py --country NP --species "Lophophorus impejanus"
@@ -44,6 +17,7 @@ import os
 import re
 import subprocess
 import sys
+import math
 from typing import Any
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -60,6 +34,16 @@ OUTPUT_FIELDS = (
     "countryCode",
     "order",
     "family",
+    "individualCount",
+)
+
+# Fields to keep for summary aggregation (exclude redundant location fields)
+SUMMARY_FIELDS = (
+    "species",
+    "scientificName",
+    "order",
+    "family",
+    "individualCount",
 )
 
 
@@ -213,6 +197,15 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
         "--params",
         help="JSON object, .json file path, or '-' for stdin (API parameter names)",
     )
+    parser.add_argument(
+        "--detail",
+        action="store_true",
+        help="Produce detailed per-record JSON output (default is aggregated summary)",
+    )
+    parser.add_argument(
+        "--native-data",
+        help="Path to JSON file mapping country codes to lists of native species",
+    )
     args = parser.parse_args(argv)
 
     filters: dict[str, Any] = {}
@@ -242,6 +235,16 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
     if "limit" in filters and filters["limit"] is not None:
         filters["limit"] = int(filters["limit"])
 
+    detail_mode = args.detail
+    native_data = None
+    if args.native_data:
+        try:
+            with open(args.native_data, encoding="utf-8") as f:
+                native_data = json.load(f)
+        except Exception as e:
+            print(f"[warning] Failed to load native data: {e}")
+            native_data = None
+
     area_field = str(filters.get("area_field", "stateProvince"))
     if area_field not in AREA_FIELDS:
         print(f"[error] area_field must be one of: {', '.join(sorted(AREA_FIELDS))}")
@@ -250,6 +253,8 @@ def parse_args(argv: list[str] | None = None) -> dict[str, Any]:
 
     return {
         "filters": filters,
+        "detail": detail_mode,
+        "native_data": native_data,
         "csv_path": os.path.join(SCRIPT_DIR, args.csv),
         "out_path": os.path.join(SCRIPT_DIR, args.out),
     }
@@ -347,7 +352,20 @@ def build_forest_json(
     *,
     csv_path: str | None = None,
     out_path: str | None = None,
-) -> list[dict[str, Any]]:
+    detail: bool = True,
+    native_data: dict | None = None,
+) -> Any:
+    """Build JSON output for forest health data.
+
+    Args:
+        filters: Filtering parameters.
+        csv_path: Path to the source CSV file.
+        out_path: Destination JSON file.
+        detail: If ``True`` (default) produce the detailed list of records.
+                If ``False`` produce an aggregated summary suitable for low‑memory RAG.
+    Returns:
+        The data written to the file – either a list of records or a summary dict.
+    """
     csv_path = csv_path or os.path.join(SCRIPT_DIR, DEFAULT_CSV)
     out_path = out_path or os.path.join(SCRIPT_DIR, DEFAULT_OUT)
     filters = normalize_filters(filters or {})
@@ -357,11 +375,94 @@ def build_forest_json(
     matched = filter_rows(read_csv_rows(csv_path), filters_no_limit)
     rows = prepare_output_rows(matched, filters)
 
+    if detail:
+        data_to_write = rows
+    else:
+        # Determine native species set for the queried country, if native_data provided
+        native_set = set()
+        query_country = filters.get("countryCode")
+        if native_data and query_country and query_country in native_data:
+            native_set = set(native_data.get(query_country, []))
+        data_to_write = aggregate_rows(rows, native_set=native_set, query_country=query_country)
+
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(rows, f, indent=2, ensure_ascii=False)
+        json.dump(data_to_write, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
-    return rows
+    return data_to_write
+
+
+def aggregate_rows(
+    rows: list[dict[str, Any]],
+    native_set: set | None = None,
+    query_country: str | None = None,
+) -> dict[str, Any]:
+    """Aggregate rows into a summary with derived metrics.
+
+    - Native flag based on ``native_set`` or matching ``query_country``.
+    - ``observation_rarity``: 1 / log(count + 10).
+    - ``geographic_specialization``: 1 - (unique_locations / max_unique_locations).
+    """
+    species_stats: dict[str, dict[str, Any]] = {}
+    total_individuals = 0
+    # Track unique locations per species
+    species_locations: dict[str, set[str]] = {}
+    # First pass: collect counts, native flags and location sets
+    for row in rows:
+        species = row.get("species")
+        if not species:
+            continue
+        sci = row.get("scientificName")
+        count = int(row.get("individualCount") or 0)
+        total_individuals += count
+        # Determine nativity
+        is_native = False
+        if native_set is not None:
+            is_native = species in native_set
+        elif query_country:
+            is_native = row.get("countryCode") == query_country
+        # Track location (use empty string if missing)
+        loc = (row.get("locality") or "").strip()
+        if species not in species_locations:
+            species_locations[species] = set()
+        if loc:
+            species_locations[species].add(loc)
+        # Initialise or update species entry
+        if species not in species_stats:
+            species_stats[species] = {
+                "species": species,
+                "scientificName": sci,
+                "count": 0,
+                "native": False,
+            }
+        if is_native:
+            species_stats[species]["native"] = True
+        species_stats[species]["count"] += count
+
+    max_observations = max((s["count"] for s in species_stats.values()), default=1)
+    max_locations = max((len(locs) for locs in species_locations.values()), default=1)
+    # Derived metrics are calculated later using log-based formulas.
+    for sp, stats in species_stats.items():
+        cnt = stats["count"]
+        # Observation rarity (log formula)
+        stats["observation_rarity"] = 1 / math.log(cnt + 10) if cnt > 0 else 0.0
+        # Normalized rarity (0 = most common, 1 = rarest) – optional alternative
+        # stats["observation_rarity_norm"] = 1 - (cnt / max_observations) if max_observations > 0 else 0.0
+        # Geographic specialization
+        unique_locs = len(species_locations.get(sp, []))
+        stats["geographic_specialization"] = 1 / math.log(unique_locs + 10) if unique_locs > 0 else 0.0
+        # expose count of unique locations for debugging
+        stats["unique_location_count"] = unique_locs
+    native_species_count = sum(1 for s in species_stats.values() if s.get("native"))
+    summary = {
+        "total_species": len(species_stats),
+        "total_individuals": total_individuals,
+        "native_species_count": native_species_count,
+        "native_percentage": (native_species_count / len(species_stats) * 100) if species_stats else 0,
+        "species_stats": list(species_stats.values()),
+    }
+    return summary
+
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -370,8 +471,13 @@ def main(argv: list[str] | None = None) -> None:
         config["filters"],
         csv_path=config["csv_path"],
         out_path=config["out_path"],
+        detail=config["detail"],
+        native_data=config["native_data"],
     )
-    print(f"[ok] Wrote {config['out_path']} ({len(rows)} records)")
+    if isinstance(rows, list):
+        print(f"[ok] Wrote {config['out_path']} ({len(rows)} records)")
+    else:
+        print(f"[ok] Wrote summary {config['out_path']} (species: {rows.get('total_species')})")
 
 
 if __name__ == "__main__":

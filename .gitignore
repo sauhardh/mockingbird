@@ -11,6 +11,17 @@ wheels/
 
 # artifacts
 *.mp3
+*.csv
+*.json
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE files
+.vscode/
+.idea/
 
 *.csv
 *.xlsx
