@@ -43,4 +43,4 @@ async def species(audio: UploadFile = File(...)):
             except Exception as cleanup_err:
                 logger.warning(f"Failed to delete temp file {temp_path}: {cleanup_err}")
 
-    return {"status": "success", "data": species_data}
+    return {"status": "success", "species": species_data}
