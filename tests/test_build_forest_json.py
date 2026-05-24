@@ -221,3 +221,27 @@ class TestBuildForestJson:
         assert len(result) == 3
         localities = [r["locality"] for r in result]
         assert len(localities) == len(set(localities))
+
+    def test_native_country_fallback(self, sample_csv: Path, tmp_path: Path):
+        out = tmp_path / "out.json"
+        result = bfj.build_forest_json(
+            {"countryCode": "NP", "limit": 10},
+            csv_path=str(sample_csv),
+            out_path=str(out),
+            detail=False,
+        )
+        assert result["native_species_count"] == 3
+        assert result["native_percentage"] == 100.0
+
+    def test_native_data_mapping(self, sample_csv: Path, tmp_path: Path):
+        out = tmp_path / "out.json"
+        native_data = {"NP": ["Corvus splendens"]}
+        result = bfj.build_forest_json(
+            {"countryCode": "NP", "limit": 10},
+            csv_path=str(sample_csv),
+            out_path=str(out),
+            detail=False,
+            native_data=native_data,
+        )
+        assert result["native_species_count"] == 1
+        assert result["native_percentage"] == pytest.approx(33.333, rel=1e-3)

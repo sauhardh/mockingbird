@@ -457,8 +457,7 @@ def aggregate_rows(
     summary = {
         "total_species": len(species_stats),
         "total_individuals": total_individuals,
-        "native_species_count": native_species_count,
-        "native_percentage": (native_species_count / len(species_stats) * 100) if species_stats else 0,
+
         "species_stats": list(species_stats.values()),
     }
     return summary
