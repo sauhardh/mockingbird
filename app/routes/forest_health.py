@@ -62,7 +62,69 @@ def calculate_dominance(species_data: list):
 # NORMALIZE
 # = normalize richness score, shannon score, dominance_score
 def normalize_score(richness, shannon, dominance):
+    # TODO richness require total num of spcies = min(richness / 20, 1)
+    # TODO shannon_score require
     return (0, shannon / 2.5, 1 - dominance)
+
+
+"""
+-> Total num of species in that area.
+-> All species, with history of count on that particular species on that location
+"""
+
+
+# __ECOLOGICAL METRICAL__
+
+
+# Native
+def native_ratio(species_data, db):
+    if not species_data:
+        return 0
+
+    native = 0
+
+    for s in species_data:
+        meta = db.get(s["scientific_name"], {})
+        if meta.get("native", False):
+            native += 1
+
+    return native / len(species_data)
+
+
+# Forest Dependency
+def forest_dependency(species_data, db):
+    total = sum(s["count"] for s in species_data)
+
+    if total == 0:
+        return 0
+
+    score = 0
+
+    for s in species_data:
+        meta = db.get(s["scientific_name"], {})
+        dep = meta.get("forest_dependency", 0.5)
+
+        score += (s["count"] / total) * dep
+
+    return score
+
+
+# Rarity score
+def rarity_score(species_data, db):
+    total = sum(s["count"] for s in species_data)
+
+    if total == 0:
+        return 0
+
+    score = 0
+
+    for s in species_data:
+        meta = db.get(s["scientific_name"], {})
+        rarity = meta.get("rarity", 0.5)
+
+        score += (s["count"] / total) * rarity
+
+    return score
 
 
 @router.post("/forest")
