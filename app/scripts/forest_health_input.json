@@ -1,0 +1,17 @@
+[
+  {
+    "species": "Lophophorus impejanus",
+    "scientificName": "Lophophorus impejanus (Latham, 1790)",
+    "locality": "Langtang National Park - Ghopte",
+    "stateProvince": "Bagmati",
+    "countryCode": "NP",
+    "order": "Galliformes",
+    "family": "Phasianidae",
+    "year": 2012,
+    "individualCount": 1,
+    "coordinates": {
+      "lat": 28.04282,
+      "lon": 85.47266
+    }
+  }
+]
