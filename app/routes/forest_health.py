@@ -95,21 +95,20 @@ async def normalize_score(loc, richness, shannon, dominance):
     return (norm_richness, norm_shannon, norm_dominance)
 
 
-async def start_querying(loc: str):
-    process = await asyncio.create_subprocess_exec(
-        "uv",
-        "run",
-        str(SCRIPTS_DIR / "build_forest_json.py"),
-        "--locality",
-        loc,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
+import subprocess
 
-    stdout, stderr = await process.communicate()
+async def start_querying(loc: str):
+    def _run_script():
+        return subprocess.run(
+            ["uv", "run", str(SCRIPTS_DIR / "build_forest_json.py"), "--locality", loc],
+            capture_output=True,
+            text=True
+        )
+
+    process = await asyncio.to_thread(_run_script)
 
     if process.returncode != 0:
-        raise Exception(stderr.decode())
+        raise Exception(process.stderr)
 
     if not FOREST_JSON_PATH.exists():
         raise Exception("Forest JSON not created")
@@ -135,58 +134,77 @@ def get_total_num_of_species():
 """
 
 
-# __ECOLOGICAL METRICAL__
+import json
 
+def load_json(filename):
+    with open(BASE_DIR / "data" / filename, "r") as f:
+        return json.load(f)
 
 # Native
-def native_ratio(species_data, db):
+def native_ratio(species_data, loc="NP"):
     if not species_data:
         return 0
 
+    try:
+        native_db = load_json("native_species.json")
+    except Exception as e:
+        logger.error(f"Could not load native_species.json: {e}")
+        native_db = {}
+        
+    native_list = native_db.get(loc, [])
     native = 0
 
     for s in species_data:
-        meta = db.get(s["scientific_name"], {})
-        if meta.get("native", False):
+        if s["scientific_name"] in native_list:
             native += 1
 
     return native / len(species_data)
 
 
 # Forest Dependency
-def forest_dependency(species_data, db):
+def forest_dependency(species_data):
     total = sum(s["count"] for s in species_data)
 
     if total == 0:
         return 0
 
+    try:
+        habitat_db = load_json("habitat_traits.json")
+    except Exception:
+        habitat_db = {}
+
     score = 0
 
     for s in species_data:
-        meta = db.get(s["scientific_name"], {})
-        dep = meta.get("forest_dependency", 0.5)
+        traits = habitat_db.get(s["scientific_name"], [])
+        is_forest = any("Forest" in t for t in traits)
+        dep = 1.0 if is_forest else 0.2
 
         score += (s["count"] / total) * dep
 
-    return score
+    return round(score, 3)
 
 
 # Rarity score
-def rarity_score(species_data, db):
+def rarity_score(species_data):
     total = sum(s["count"] for s in species_data)
 
     if total == 0:
         return 0
 
+    try:
+        rarity_db = load_json("rarity_scores.json")
+    except Exception:
+        rarity_db = {}
+
     score = 0
 
     for s in species_data:
-        meta = db.get(s["scientific_name"], {})
-        rarity = meta.get("rarity", 0.5)
+        rarity = rarity_db.get(s["scientific_name"], 0.2)
 
         score += (s["count"] / total) * rarity
 
-    return score
+    return round(score, 3)
 
 
 class ForestRequest(BaseModel):
@@ -196,7 +214,14 @@ class ForestRequest(BaseModel):
 
 @router.post("/forest")
 async def forest(req: ForestRequest):
-    filtered = preprocess_species(req.species, 0.6)
+    # Collect ALL unique species names before confidence filtering (for RAG)
+    all_species_names = list({
+        s.species_label.split("_", 1)[0]
+        for s in req.species
+        if "_" in s.species_label
+    })
+
+    filtered = preprocess_species(req.species, 0.1)
 
     merged = merge_species(filtered)
 
@@ -213,14 +238,33 @@ async def forest(req: ForestRequest):
     (norm_unique, norm_shannon, norm_dominance) = await normalize_score(
         req.loc, unique_species, shannon_idx, dominance
     )
+    
+    # extra metrics
+    n_ratio = native_ratio(merged, req.loc)
+    f_dep = forest_dependency(merged)
+    r_score = rarity_score(merged)
+    
+    # overall health index simple average for now
+    f_health = round((norm_unique + norm_shannon + norm_dominance + n_ratio) / 4, 3)
 
     logger.info(merged)
+    
+    # species that passed confidence threshold (used for metrics)
+    species_names = [m["scientific_name"] for m in merged]
 
     return {
+        "loc": req.loc,
         "unique_species": unique_species,
         "shannon_idx": shannon_idx,
         "dominance": dominance,
         "norm_unique": norm_unique,
         "norm_shannon": norm_shannon,
         "norm_dominance": norm_dominance,
+        "native_ratio": n_ratio,
+        "forest_dependency": f_dep,
+        "rarity_score": r_score,
+        "forest_health_index": f_health,
+        "species_list": species_names,
+        "all_species_list": all_species_names,
     }
+
