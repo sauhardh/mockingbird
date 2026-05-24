@@ -1,672 +1,672 @@
 {
   "total_species": 247,
-  "total_individuals": 15111,
-  "native_ratio": 0.82996,
-  "native_species_count": 205,
-  "native_percentage": 82.996,
-  "avg_forest_dependency": 0.714575,
-  "avg_rarity": 0.295751,
-  "forest_health_index": 0.676964,
+  "total_individuals": 70285,
+  "native_ratio": 0.765182,
+  "native_species_count": 189,
+  "native_percentage": 76.5182,
+  "avg_forest_dependency": 0.141093,
+  "avg_rarity": 0.570834,
+  "forest_health_index": 0.476677,
   "species_stats": [
     {
       "species": "Columba livia",
       "scientificName": "Columba livia J.F.Gmelin, 1789",
-      "count": 2843,
-      "native": false,
-      "forest_dependency": 1.0,
+      "count": 23824,
+      "native": true,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.19608356692326917,
       "unique_location_count": 154,
-      "observation_rarity": 0.125689,
-      "rarity_score": 0.147983
+      "observation_rarity": 0.0,
+      "rarity_score": 0.06
     },
     {
       "species": "Spilopelia chinensis",
       "scientificName": "Spilopelia chinensis (Scopoli, 1786)",
-      "count": 67,
+      "count": 218,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.269282508064391,
       "unique_location_count": 31,
-      "observation_rarity": 0.230213,
-      "rarity_score": 0.161149
+      "observation_rarity": 0.113042,
+      "rarity_score": 0.079129
     },
     {
       "species": "Egretta garzetta",
       "scientificName": "Egretta garzetta (Linnaeus, 1766)",
-      "count": 19,
+      "count": 46,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.30692767643013485,
       "unique_location_count": 16,
-      "observation_rarity": 0.296974,
-      "rarity_score": 0.267882
+      "observation_rarity": 0.631284,
+      "rarity_score": 0.501899
     },
     {
       "species": "Streptopelia orientalis",
       "scientificName": "Streptopelia orientalis (Latham, 1790)",
-      "count": 39,
+      "count": 143,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.29120667621996243,
       "unique_location_count": 21,
-      "observation_rarity": 0.256949,
-      "rarity_score": 0.239864
+      "observation_rarity": 0.239309,
+      "rarity_score": 0.227516
     },
     {
       "species": "Corvus macrorhynchos",
       "scientificName": "Corvus macrorhynchos Wagler, 1827",
-      "count": 81,
+      "count": 193,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.2749075777424936,
       "unique_location_count": 28,
-      "observation_rarity": 0.221687,
-      "rarity_score": 0.215181
+      "observation_rarity": 0.145148,
+      "rarity_score": 0.161604
     },
     {
       "species": "Acridotheres tristis",
       "scientificName": "Acridotheres tristis (Linnaeus, 1766)",
-      "count": 483,
-      "native": false,
-      "forest_dependency": 1.0,
+      "count": 2098,
+      "native": true,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.22569202144874392,
       "unique_location_count": 74,
-      "observation_rarity": 0.161277,
-      "rarity_score": 0.172894
+      "observation_rarity": 0.0,
+      "rarity_score": 0.06
     },
     {
       "species": "Psittacula krameri",
       "scientificName": "Psittacula krameri (Scopoli, 1769)",
-      "count": 258,
+      "count": 1201,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.23382699798647663,
       "unique_location_count": 62,
-      "observation_rarity": 0.178859,
-      "rarity_score": 0.125202
+      "observation_rarity": 6e-06,
+      "rarity_score": 4e-06
     },
     {
       "species": "Saxicola caprata",
       "scientificName": "Saxicola caprata (Linnaeus, 1766)",
-      "count": 45,
+      "count": 185,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3001016285004131,
       "unique_location_count": 18,
-      "observation_rarity": 0.249543,
-      "rarity_score": 0.23468
+      "observation_rarity": 0.157237,
+      "rarity_score": 0.170066
     },
     {
       "species": "Milvus migrans",
       "scientificName": "Milvus migrans (Boddaert, 1783)",
-      "count": 1656,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 6779,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.20386217799573403,
       "unique_location_count": 125,
-      "observation_rarity": 0.134804,
-      "rarity_score": 0.154363
+      "observation_rarity": 0.0,
+      "rarity_score": 0.06
     },
     {
       "species": "Zosterops palpebrosus",
       "scientificName": "Zosterops palpebrosus (Temminck, 1824)",
-      "count": 125,
+      "count": 390,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.2835784920513334,
       "unique_location_count": 24,
-      "observation_rarity": 0.203862,
-      "rarity_score": 0.202704
+      "observation_rarity": 0.020242,
+      "rarity_score": 0.074169
     },
     {
       "species": "Copsychus saularis",
       "scientificName": "Copsychus saularis (Linnaeus, 1758)",
-      "count": 126,
+      "count": 649,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.22953106112437666,
       "unique_location_count": 68,
-      "observation_rarity": 0.203556,
-      "rarity_score": 0.202489
+      "observation_rarity": 0.001519,
+      "rarity_score": 0.061063
     },
     {
       "species": "Eumyias thalassinus",
       "scientificName": "Eumyias thalassinus (Swainson, 1838)",
-      "count": 11,
+      "count": 59,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3396232718951086,
       "unique_location_count": 9,
-      "observation_rarity": 0.328459,
-      "rarity_score": 0.289921
+      "observation_rarity": 0.554327,
+      "rarity_score": 0.448029
     },
     {
       "species": "Picumnus innominatus",
       "scientificName": "Picumnus innominatus Burton, 1836",
-      "count": 4,
+      "count": 6,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.719235
     },
     {
       "species": "Dicrurus leucophaeus",
       "scientificName": "Dicrurus leucophaeus Vieillot, 1817",
-      "count": 40,
+      "count": 76,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.31066746727980593,
       "unique_location_count": 15,
-      "observation_rarity": 0.255622,
-      "rarity_score": 0.238936
+      "observation_rarity": 0.467666,
+      "rarity_score": 0.387366
     },
     {
       "species": "Tyto javanica",
       "scientificName": "Tyto javanica (J.F.Gmelin, 1788)",
-      "count": 15,
+      "count": 28,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.31465798044412485,
       "unique_location_count": 14,
-      "observation_rarity": 0.310667,
-      "rarity_score": 0.217467
+      "observation_rarity": 0.755784,
+      "rarity_score": 0.529049
     },
     {
       "species": "Passer domesticus",
       "scientificName": "Passer domesticus (Linnaeus, 1758)",
-      "count": 518,
+      "count": 4088,
       "native": false,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.21714724095162588,
       "unique_location_count": 90,
-      "observation_rarity": 0.159513,
-      "rarity_score": 0.171659
+      "observation_rarity": 0.0,
+      "rarity_score": 0.0
     },
     {
       "species": "Micropternus brachyurus",
       "scientificName": "Micropternus brachyurus (Vieillot, 1818)",
-      "count": 6,
+      "count": 7,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.712676
     },
     {
       "species": "Hirundo rustica",
       "scientificName": "Hirundo rustica Linnaeus, 1758",
-      "count": 219,
-      "native": true,
+      "count": 1473,
+      "native": false,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.25562221863533147,
       "unique_location_count": 40,
-      "observation_rarity": 0.184036,
-      "rarity_score": 0.188825
+      "observation_rarity": 0.0,
+      "rarity_score": 0.06
     },
     {
       "species": "Oriolus traillii",
       "scientificName": "Oriolus traillii (Vigors, 1832)",
-      "count": 2,
+      "count": 10,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.904837,
+      "rarity_score": 0.693386
     },
     {
       "species": "Psilopogon asiaticus",
       "scientificName": "Psilopogon asiaticus (Latham, 1790)",
-      "count": 57,
+      "count": 234,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.2749075777424936,
       "unique_location_count": 28,
-      "observation_rarity": 0.23783,
-      "rarity_score": 0.226481
+      "observation_rarity": 0.096328,
+      "rarity_score": 0.127429
     },
     {
       "species": "Corvus splendens",
       "scientificName": "Corvus splendens Vieillot, 1817",
-      "count": 5365,
-      "native": false,
-      "forest_dependency": 1.0,
+      "count": 16466,
+      "native": true,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.1956186206621379,
       "unique_location_count": 156,
-      "observation_rarity": 0.116421,
-      "rarity_score": 0.141495
+      "observation_rarity": 0.0,
+      "rarity_score": 0.06
     },
     {
       "species": "Apus nipalensis",
       "scientificName": "Apus nipalensis (Hodgson, 1837)",
-      "count": 98,
+      "count": 484,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.33380820069533407,
       "unique_location_count": 10,
-      "observation_rarity": 0.213578,
-      "rarity_score": 0.209505
+      "observation_rarity": 0.007907,
+      "rarity_score": 0.065535
     },
     {
       "species": "Pomatorhinus erythrogenys",
       "scientificName": "Erythrogenys erythrogenys (Vigors, 1831)",
-      "count": 29,
+      "count": 95,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.30692767643013485,
       "unique_location_count": 16,
-      "observation_rarity": 0.272958,
-      "rarity_score": 0.191071
+      "observation_rarity": 0.386741,
+      "rarity_score": 0.270719
     },
     {
       "species": "Lanius schach",
       "scientificName": "Lanius schach Linnaeus, 1758",
-      "count": 46,
+      "count": 172,
       "native": true,
-      "forest_dependency": 0.4,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.269282508064391,
       "unique_location_count": 31,
-      "observation_rarity": 0.248425,
-      "rarity_score": 0.233898
+      "observation_rarity": 0.179066,
+      "rarity_score": 0.185346
     },
     {
       "species": "Myophonus caeruleus",
       "scientificName": "Myophonus caeruleus (Scopoli, 1786)",
-      "count": 20,
+      "count": 73,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.33380820069533407,
       "unique_location_count": 10,
-      "observation_rarity": 0.294014,
-      "rarity_score": 0.26581
+      "observation_rarity": 0.481909,
+      "rarity_score": 0.397336
     },
     {
       "species": "Acridotheres fuscus",
       "scientificName": "Acridotheres fuscus (Wagler, 1827)",
-      "count": 130,
+      "count": 657,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.265872585674852,
       "unique_location_count": 33,
-      "observation_rarity": 0.202362,
-      "rarity_score": 0.201653
+      "observation_rarity": 0.001402,
+      "rarity_score": 0.060981
     },
     {
       "species": "Streptopelia decaocto",
       "scientificName": "Streptopelia decaocto (Frivaldszky, 1838)",
-      "count": 74,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 498,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.28853900817779266,
       "unique_location_count": 22,
-      "observation_rarity": 0.225692,
-      "rarity_score": 0.217984
+      "observation_rarity": 0.006874,
+      "rarity_score": 0.064812
     },
     {
       "species": "Vanellus duvaucelii",
       "scientificName": "Vanellus duvaucelii (R.Lesson, 1826)",
-      "count": 6,
+      "count": 16,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.372472
+      "observation_rarity": 0.852144,
+      "rarity_score": 0.716501
     },
     {
       "species": "Delichon nipalense",
       "scientificName": "Delichon nipalense Moore, 1854",
-      "count": 2,
+      "count": 14,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.869358,
+      "rarity_score": 0.668551
     },
     {
       "species": "Ardeola grayii",
       "scientificName": "Ardeola grayii (Sykes, 1832)",
-      "count": 37,
+      "count": 198,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3001016285004131,
       "unique_location_count": 18,
-      "observation_rarity": 0.25973,
-      "rarity_score": 0.241811
+      "observation_rarity": 0.138069,
+      "rarity_score": 0.156648
     },
     {
       "species": "Nycticorax nycticorax",
       "scientificName": "Nycticorax nycticorax (Linnaeus, 1758)",
-      "count": 16,
+      "count": 39,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3396232718951086,
       "unique_location_count": 9,
-      "observation_rarity": 0.306928,
-      "rarity_score": 0.274849
+      "observation_rarity": 0.677057,
+      "rarity_score": 0.53394
     },
     {
       "species": "Pycnonotus cafer",
       "scientificName": "Pycnonotus cafer (Linnaeus, 1766)",
-      "count": 245,
+      "count": 1276,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.23382699798647663,
       "unique_location_count": 62,
-      "observation_rarity": 0.180464,
-      "rarity_score": 0.186325
+      "observation_rarity": 3e-06,
+      "rarity_score": 0.060002
     },
     {
       "species": "Anthus roseatus",
       "scientificName": "Anthus roseatus Blyth, 1847",
-      "count": 51,
+      "count": 126,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.243257,
-      "rarity_score": 0.23028
+      "observation_rarity": 0.283654,
+      "rarity_score": 0.198558
     },
     {
       "species": "Aegithalos concinnus",
       "scientificName": "Aegithalos concinnus (Gould, 1855)",
-      "count": 39,
+      "count": 122,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.256949,
-      "rarity_score": 0.179864
+      "observation_rarity": 0.29523,
+      "rarity_score": 0.206661
     },
     {
       "species": "Phylloscopus xanthoschistos",
       "scientificName": "Phylloscopus xanthoschistos (J.E.Gray & G.R.Gray, 1847)",
-      "count": 48,
+      "count": 158,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.32351545314867247,
       "unique_location_count": 12,
-      "observation_rarity": 0.246279,
-      "rarity_score": 0.232395
+      "observation_rarity": 0.205975,
+      "rarity_score": 0.204183
     },
     {
       "species": "Urocissa erythroryncha",
       "scientificName": "Urocissa erythroryncha (Boddaert, 1783)",
-      "count": 10,
+      "count": 51,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.333808,
-      "rarity_score": 0.293666
+      "observation_rarity": 0.600496,
+      "rarity_score": 0.480347
     },
     {
       "species": "Passer montanus",
       "scientificName": "Passer montanus (Linnaeus, 1758)",
-      "count": 432,
+      "count": 1648,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.23459420572161058,
       "unique_location_count": 61,
-      "observation_rarity": 0.164168,
-      "rarity_score": 0.174918
+      "observation_rarity": 0.0,
+      "rarity_score": 0.0
     },
     {
       "species": "Culicicapa ceylonensis",
       "scientificName": "Culicicapa ceylonensis (Swainson, 1820)",
-      "count": 31,
+      "count": 84,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.31465798044412485,
       "unique_location_count": 14,
-      "observation_rarity": 0.269283,
-      "rarity_score": 0.248498
+      "observation_rarity": 0.431711,
+      "rarity_score": 0.362197
     },
     {
       "species": "Dicrurus macrocercus",
       "scientificName": "Dicrurus macrocercus Vieillot, 1817",
-      "count": 53,
+      "count": 186,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.2969742043733701,
       "unique_location_count": 19,
-      "observation_rarity": 0.241363,
-      "rarity_score": 0.228954
+      "observation_rarity": 0.155673,
+      "rarity_score": 0.168971
     },
     {
       "species": "Halcyon smyrnensis",
       "scientificName": "Halcyon smyrnensis (Linnaeus, 1758)",
-      "count": 49,
+      "count": 227,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.2769378934088574,
       "unique_location_count": 27,
-      "observation_rarity": 0.245246,
-      "rarity_score": 0.231672
+      "observation_rarity": 0.103312,
+      "rarity_score": 0.132319
     },
     {
       "species": "Psittacula eupatria",
       "scientificName": "Psittacula eupatria (Linnaeus, 1766)",
-      "count": 110,
+      "count": 572,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.2710850306818168,
       "unique_location_count": 30,
-      "observation_rarity": 0.208878,
-      "rarity_score": 0.146214
+      "observation_rarity": 0.00328,
+      "rarity_score": 0.002296
     },
     {
       "species": "Phylloscopus fuscatus",
       "scientificName": "Phylloscopus fuscatus (Blyth, 1842)",
-      "count": 3,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Aquila nipalensis",
       "scientificName": "Aquila nipalensis Hodgson, 1833",
-      "count": 20,
+      "count": 46,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3284587387530511,
       "unique_location_count": 11,
-      "observation_rarity": 0.294014,
-      "rarity_score": 0.44581
+      "observation_rarity": 0.631284,
+      "rarity_score": 0.681899
     },
     {
       "species": "Orthotomus sutorius",
       "scientificName": "Orthotomus sutorius (Pennant, 1769)",
-      "count": 77,
+      "count": 301,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.2518706487516997,
       "unique_location_count": 43,
-      "observation_rarity": 0.223919,
-      "rarity_score": 0.216743
+      "observation_rarity": 0.049292,
+      "rarity_score": 0.094504
     },
     {
       "species": "Saxicola maurus",
       "scientificName": "Saxicola maurus (Pallas, 1773)",
-      "count": 21,
+      "count": 107,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.32351545314867247,
       "unique_location_count": 12,
-      "observation_rarity": 0.291207,
-      "rarity_score": 0.203845
+      "observation_rarity": 0.343009,
+      "rarity_score": 0.240106
     },
     {
       "species": "Motacilla cinerea",
       "scientificName": "Motacilla cinerea Tunstall, 1771",
-      "count": 24,
+      "count": 139,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.318928988903801,
       "unique_location_count": 13,
-      "observation_rarity": 0.283578,
-      "rarity_score": 0.258505
+      "observation_rarity": 0.249075,
+      "rarity_score": 0.174353
     },
     {
       "species": "Rhipidura albicollis",
       "scientificName": "Rhipidura albicollis (Vieillot, 1818)",
-      "count": 2,
+      "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Phoenicurus hodgsoni",
       "scientificName": "Phoenicurus hodgsoni (Moore, 1854)",
-      "count": 9,
+      "count": 19,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.339623,
-      "rarity_score": 0.297736
+      "observation_rarity": 0.826959,
+      "rarity_score": 0.638871
     },
     {
       "species": "Falco peregrinus",
       "scientificName": "Falco peregrinus Tunstall, 1771",
-      "count": 9,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 25,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.339623,
-      "rarity_score": 0.297736
+      "observation_rarity": 0.778801,
+      "rarity_score": 0.605161
     },
     {
       "species": "Psilopogon haemacephalus",
       "scientificName": "Psilopogon haemacephalus (P.L.S.Müller, 1776)",
-      "count": 14,
+      "count": 48,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.318928988903801,
       "unique_location_count": 13,
-      "observation_rarity": 0.314658,
-      "rarity_score": 0.280261
+      "observation_rarity": 0.618783,
+      "rarity_score": 0.493148
     },
     {
       "species": "Cuculus saturatus",
       "scientificName": "Cuculus saturatus Blyth, 1843",
-      "count": 3,
+      "count": 7,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.712676
     },
     {
       "species": "Hypsipetes leucocephalus",
       "scientificName": "Hypsipetes leucocephalus (Gmelin, 1789)",
-      "count": 23,
+      "count": 42,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.286,
-      "rarity_score": 0.2602
+      "observation_rarity": 0.657047,
+      "rarity_score": 0.519933
     },
     {
       "species": "Ciconia episcopus",
       "scientificName": "Ciconia episcopus (Boddaert, 1783)",
-      "count": 3,
+      "count": 9,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.39291
+      "observation_rarity": 0.913931,
+      "rarity_score": 0.759752
     },
     {
       "species": "Eudynamys scolopaceus",
       "scientificName": "Eudynamys scolopaceus (Linnaeus, 1758)",
-      "count": 28,
+      "count": 70,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.30341307554227914,
       "unique_location_count": 17,
-      "observation_rarity": 0.274908,
-      "rarity_score": 0.252435
+      "observation_rarity": 0.496585,
+      "rarity_score": 0.40761
     },
     {
       "species": "Luscinia svecica",
       "scientificName": "Luscinia svecica (Linnaeus, 1758)",
-      "count": 8,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 11,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.302183
+      "observation_rarity": 0.895834,
+      "rarity_score": 0.687084
     },
     {
       "species": "Athene brama",
       "scientificName": "Athene brama (Temminck, 1821)",
-      "count": 29,
+      "count": 116,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.31066746727980593,
       "unique_location_count": 15,
-      "observation_rarity": 0.272958,
-      "rarity_score": 0.251071
+      "observation_rarity": 0.313486,
+      "rarity_score": 0.27944
     },
     {
       "species": "Dendrocopos macei",
       "scientificName": "Dendrocopos macei (Vieillot, 1818)",
-      "count": 11,
+      "count": 25,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3396232718951086,
       "unique_location_count": 9,
-      "observation_rarity": 0.328459,
-      "rarity_score": 0.289921
+      "observation_rarity": 0.778801,
+      "rarity_score": 0.605161
     },
     {
       "species": "Motacilla alba",
       "scientificName": "Motacilla alba Linnaeus, 1758",
-      "count": 106,
+      "count": 463,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.318928988903801,
       "unique_location_count": 13,
-      "observation_rarity": 0.210367,
-      "rarity_score": 0.207257
+      "observation_rarity": 0.009755,
+      "rarity_score": 0.006828
     },
     {
       "species": "Cissa chinensis",
       "scientificName": "Cissa chinensis (Boddaert, 1783)",
-      "count": 1,
+      "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Hieraaetus pennatus",
       "scientificName": "Hieraaetus pennatus (Gmelin, 1788)",
-      "count": 7,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 50,
+      "native": false,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.352956,
-      "rarity_score": 0.307069
+      "observation_rarity": 0.606531,
+      "rarity_score": 0.484571
     },
     {
       "species": "Dendrocoptes auriceps",
@@ -676,1031 +676,1031 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.291923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Cyornis rubeculoides",
       "scientificName": "Cyornis rubeculoides (Vigors, 1831)",
-      "count": 6,
+      "count": 85,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.36067376022224085,
       "unique_location_count": 6,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.427415,
+      "rarity_score": 0.35919
     },
     {
       "species": "Merops leschenaulti",
       "scientificName": "Merops leschenaulti Vieillot, 1817",
-      "count": 3,
+      "count": 29,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.748264,
+      "rarity_score": 0.583784
     },
     {
       "species": "Parus xanthogenys",
       "scientificName": "Machlolophus xanthogenys (Vigors, 1831)",
-      "count": 34,
+      "count": 146,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3396232718951086,
       "unique_location_count": 9,
-      "observation_rarity": 0.264257,
-      "rarity_score": 0.18498
+      "observation_rarity": 0.232236,
+      "rarity_score": 0.162565
     },
     {
       "species": "Phoenicurus ochruros",
       "scientificName": "Phoenicurus ochruros (S.G.Gmelin, 1774)",
       "count": 1,
-      "native": true,
-      "forest_dependency": 1.0,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Gallinula chloropus",
       "scientificName": "Gallinula chloropus (Linnaeus, 1758)",
-      "count": 2,
+      "count": 5,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Phylloscopus humei",
       "scientificName": "Phylloscopus humei (W.E.Brooks, 1878)",
-      "count": 26,
+      "count": 87,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.31066746727980593,
       "unique_location_count": 15,
-      "observation_rarity": 0.279055,
-      "rarity_score": 0.255339
+      "observation_rarity": 0.418952,
+      "rarity_score": 0.353266
     },
     {
       "species": "Niltava macgrigoriae",
       "scientificName": "Niltava macgrigoriae (Burton, 1836)",
-      "count": 5,
+      "count": 10,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.904837,
+      "rarity_score": 0.693386
     },
     {
       "species": "Pycnonotus leucogenys",
       "scientificName": "Pycnonotus leucogenys (J.E.Gray, 1835)",
-      "count": 71,
+      "count": 206,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.31465798044412485,
       "unique_location_count": 14,
-      "observation_rarity": 0.22756,
-      "rarity_score": 0.219292
+      "observation_rarity": 0.127454,
+      "rarity_score": 0.149218
     },
     {
       "species": "Streptopelia tranquebarica",
       "scientificName": "Streptopelia tranquebarica (Hermann, 1804)",
-      "count": 11,
+      "count": 41,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.36067376022224085,
       "unique_location_count": 6,
-      "observation_rarity": 0.328459,
-      "rarity_score": 0.289921
+      "observation_rarity": 0.66365,
+      "rarity_score": 0.524555
     },
     {
       "species": "Phalacrocorax carbo",
       "scientificName": "Phalacrocorax carbo (Linnaeus, 1758)",
-      "count": 26,
-      "native": true,
+      "count": 35,
+      "native": false,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.279055,
-      "rarity_score": 0.255339
+      "observation_rarity": 0.704688,
+      "rarity_score": 0.553282
     },
     {
       "species": "Anthus spinoletta",
       "scientificName": "Anthus spinoletta (Linnaeus, 1758)",
-      "count": 3,
+      "count": 6,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.659235
     },
     {
       "species": "Anthus cervinus",
       "scientificName": "Anthus cervinus (Pallas, 1811)",
-      "count": 4,
+      "count": 8,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.923116,
+      "rarity_score": 0.646181
     },
     {
       "species": "Falco tinnunculus",
       "scientificName": "Falco tinnunculus Linnaeus, 1758",
-      "count": 3,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 4,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Treron phoenicopterus",
       "scientificName": "Treron phoenicopterus (Latham, 1790)",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Phylloscopus reguloides",
       "scientificName": "Phylloscopus reguloides (Blyth, 1842)",
-      "count": 6,
+      "count": 25,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.778801,
+      "rarity_score": 0.605161
     },
     {
       "species": "Hemixos flavala",
       "scientificName": "Hemixos flavala Blyth, 1845",
       "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Pericrocotus speciosus",
       "scientificName": "Pericrocotus speciosus (Latham, 1790)",
-      "count": 12,
+      "count": 58,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.323515,
-      "rarity_score": 0.226461
+      "observation_rarity": 0.559898,
+      "rarity_score": 0.391929
     },
     {
       "species": "Dendrocitta formosae",
       "scientificName": "Dendrocitta formosae Swinhoe, 1863",
-      "count": 32,
+      "count": 141,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.33380820069533407,
       "unique_location_count": 10,
-      "observation_rarity": 0.267546,
-      "rarity_score": 0.247282
+      "observation_rarity": 0.244143,
+      "rarity_score": 0.2309
     },
     {
       "species": "Cisticola juncidis",
       "scientificName": "Cisticola juncidis (Rafinesque, 1810)",
-      "count": 31,
+      "count": 87,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.269283,
-      "rarity_score": 0.248498
+      "observation_rarity": 0.418952,
+      "rarity_score": 0.353266
     },
     {
       "species": "Riparia chinensis",
       "scientificName": "Riparia chinensis (J.E.Gray, 1830)",
-      "count": 59,
+      "count": 121,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.236177,
-      "rarity_score": 0.225324
+      "observation_rarity": 0.298197,
+      "rarity_score": 0.268738
     },
     {
       "species": "Sturnia malabarica",
       "scientificName": "Sturnia malabarica (Gmelin, 1789)",
-      "count": 30,
+      "count": 175,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.271085,
-      "rarity_score": 0.24976
+      "observation_rarity": 0.173774,
+      "rarity_score": 0.181642
     },
     {
       "species": "Sitta cinnamoventris",
       "scientificName": "Sitta cinnamoventris Blyth, 1842",
-      "count": 8,
+      "count": 44,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.302183
+      "observation_rarity": 0.644036,
+      "rarity_score": 0.510825
     },
     {
       "species": "Vanellus indicus",
       "scientificName": "Vanellus indicus (Boddaert, 1783)",
-      "count": 34,
+      "count": 392,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.264257,
-      "rarity_score": 0.24498
+      "observation_rarity": 0.019841,
+      "rarity_score": 0.073889
     },
     {
       "species": "Motacilla maderaspatensis",
       "scientificName": "Motacilla maderaspatensis Gmelin, 1789",
-      "count": 11,
+      "count": 47,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.328459,
-      "rarity_score": 0.289921
+      "observation_rarity": 0.625002,
+      "rarity_score": 0.437502
     },
     {
       "species": "Dicaeum minullum",
       "scientificName": "Dicaeum minullum Swinhoe, 1870",
-      "count": 1,
+      "count": 8,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.923116,
+      "rarity_score": 0.706181
     },
     {
       "species": "Ficedula albicilla",
       "scientificName": "Ficedula albicilla (Pallas, 1811)",
-      "count": 5,
+      "count": 16,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.852144,
+      "rarity_score": 0.656501
     },
     {
       "species": "Cuculus canorus",
       "scientificName": "Cuculus canorus Linnaeus, 1758",
-      "count": 13,
+      "count": 34,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3284587387530511,
       "unique_location_count": 11,
-      "observation_rarity": 0.318929,
-      "rarity_score": 0.28325
+      "observation_rarity": 0.71177,
+      "rarity_score": 0.558239
     },
     {
       "species": "Aethopyga siparaja",
       "scientificName": "Aethopyga siparaja (Raffles, 1822)",
-      "count": 13,
+      "count": 56,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.318929,
-      "rarity_score": 0.28325
+      "observation_rarity": 0.571209,
+      "rarity_score": 0.459846
     },
     {
       "species": "Garrulax rufogularis",
       "scientificName": "Ianthocincla rufogularis Gould, 1835",
-      "count": 2,
+      "count": 4,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.281701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.672553
     },
     {
       "species": "Terpsiphone paradisi",
       "scientificName": "Terpsiphone paradisi (Linnaeus, 1758)",
-      "count": 1,
+      "count": 6,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.719235
     },
     {
       "species": "Sitta frontalis",
       "scientificName": "Sitta frontalis Swainson, 1820",
-      "count": 1,
+      "count": 12,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.88692,
+      "rarity_score": 0.680844
     },
     {
       "species": "Parus cinereus",
       "scientificName": "Parus cinereus Vieillot, 1818",
-      "count": 13,
+      "count": 40,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.318929,
-      "rarity_score": 0.22325
+      "observation_rarity": 0.67032,
+      "rarity_score": 0.469224
     },
     {
       "species": "Lonchura punctulata",
       "scientificName": "Lonchura punctulata (Linnaeus, 1758)",
-      "count": 45,
+      "count": 104,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.249543,
-      "rarity_score": 0.23468
+      "observation_rarity": 0.353455,
+      "rarity_score": 0.247418
     },
     {
       "species": "Aquila fasciata",
       "scientificName": "Aquila fasciata Vieillot, 1822",
-      "count": 1,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Parus monticolus",
       "scientificName": "Parus monticolus Vigors, 1831",
-      "count": 7,
+      "count": 15,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.352956,
-      "rarity_score": 0.307069
+      "observation_rarity": 0.860708,
+      "rarity_score": 0.662496
     },
     {
       "species": "Bubo bengalensis",
       "scientificName": "Bubo bengalensis (Franklin, 1831)",
-      "count": 5,
+      "count": 7,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.712676
     },
     {
       "species": "Phylloscopus trochiloides",
       "scientificName": "Phylloscopus trochiloides (Sundevall, 1837)",
-      "count": 8,
+      "count": 42,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.302183
+      "observation_rarity": 0.657047,
+      "rarity_score": 0.519933
     },
     {
       "species": "Upupa epops",
       "scientificName": "Upupa epops Linnaeus, 1758",
-      "count": 5,
-      "native": true,
-      "forest_dependency": 0.8,
+      "count": 29,
+      "native": false,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.748264,
+      "rarity_score": 0.583784
     },
     {
       "species": "Coracina javensis",
       "scientificName": "Coracina javensis (Horsfield, 1821)",
-      "count": 2,
+      "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Ploceus philippinus",
       "scientificName": "Ploceus philippinus (Linnaeus, 1766)",
-      "count": 15,
+      "count": 112,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.310667,
-      "rarity_score": 0.277467
+      "observation_rarity": 0.32628,
+      "rarity_score": 0.288396
     },
     {
       "species": "Actitis hypoleucos",
       "scientificName": "Actitis hypoleucos (Linnaeus, 1758)",
-      "count": 18,
+      "count": 64,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.300102,
-      "rarity_score": 0.270071
+      "observation_rarity": 0.527292,
+      "rarity_score": 0.429105
     },
     {
       "species": "Phoenicurus frontalis",
       "scientificName": "Phoenicurus frontalis Vigors, 1832",
-      "count": 2,
+      "count": 12,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.88692,
+      "rarity_score": 0.680844
     },
     {
       "species": "Centropus sinensis",
       "scientificName": "Centropus sinensis (Stephens, 1815)",
-      "count": 8,
+      "count": 11,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.302183
+      "observation_rarity": 0.895834,
+      "rarity_score": 0.687084
     },
     {
       "species": "Aerodramus brevirostris",
       "scientificName": "Aerodramus brevirostris (Horsfield, 1840)",
-      "count": 2,
+      "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Lanius tephronotus",
       "scientificName": "Lanius tephronotus (Vigors, 1831)",
-      "count": 20,
+      "count": 50,
       "native": true,
-      "forest_dependency": 0.4,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.29401410379520604,
       "unique_location_count": 20,
-      "observation_rarity": 0.294014,
-      "rarity_score": 0.26581
+      "observation_rarity": 0.606531,
+      "rarity_score": 0.484571
     },
     {
       "species": "Ficedula strophiata",
       "scientificName": "Ficedula strophiata (Hodgson, 1837)",
-      "count": 1,
+      "count": 7,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.712676
     },
     {
       "species": "Lanius cristatus",
       "scientificName": "Lanius cristatus Linnaeus, 1758",
-      "count": 4,
+      "count": 21,
       "native": true,
-      "forest_dependency": 0.4,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.810584,
+      "rarity_score": 0.627409
     },
     {
       "species": "Pericrocotus ethologus",
       "scientificName": "Pericrocotus ethologus Bangs & J.C.Phillips, 1914",
-      "count": 7,
+      "count": 8,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.352956,
-      "rarity_score": 0.307069
+      "observation_rarity": 0.923116,
+      "rarity_score": 0.706181
     },
     {
       "species": "Phoenicurus fuliginosus",
       "scientificName": "Phoenicurus fuliginosus Vigors, 1831",
-      "count": 4,
+      "count": 10,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.904837,
+      "rarity_score": 0.693386
     },
     {
       "species": "Picus canus",
       "scientificName": "Picus canus J.F.Gmelin, 1788",
-      "count": 8,
+      "count": 37,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.242183
+      "observation_rarity": 0.690734,
+      "rarity_score": 0.483514
     },
     {
       "species": "Psarisomus dalhousiae",
       "scientificName": "Psarisomus dalhousiae (Jameson, 1835)",
-      "count": 7,
+      "count": 24,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.352956,
-      "rarity_score": 0.307069
+      "observation_rarity": 0.786628,
+      "rarity_score": 0.61064
     },
     {
       "species": "Enicurus immaculatus",
       "scientificName": "Enicurus immaculatus (Hodgson, 1836)",
-      "count": 1,
+      "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Harpactes erythrocephalus",
       "scientificName": "Harpactes erythrocephalus (Gould, 1834)",
-      "count": 1,
+      "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Pluvialis fulva",
       "scientificName": "Pluvialis fulva (J.F.Gmelin, 1789)",
-      "count": 4,
+      "count": 19,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.826959,
+      "rarity_score": 0.638871
     },
     {
       "species": "Coracina melaschistos",
       "scientificName": "Lalage melaschistos (Hodgson, 1836)",
-      "count": 6,
+      "count": 25,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.252472
+      "observation_rarity": 0.778801,
+      "rarity_score": 0.545161
     },
     {
       "species": "Cecropis daurica",
       "scientificName": "Cecropis daurica (Laxmann, 1769)",
-      "count": 50,
+      "count": 168,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.318928988903801,
       "unique_location_count": 13,
-      "observation_rarity": 0.244239,
-      "rarity_score": 0.170968
+      "observation_rarity": 0.186374,
+      "rarity_score": 0.130462
     },
     {
       "species": "Glaucidium cuculoides",
       "scientificName": "Glaucidium cuculoides (Vigors, 1831)",
-      "count": 2,
+      "count": 16,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.852144,
+      "rarity_score": 0.656501
     },
     {
       "species": "Psilopogon virens",
       "scientificName": "Psilopogon virens (Boddaert, 1783)",
-      "count": 24,
+      "count": 117,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.31066746727980593,
       "unique_location_count": 15,
-      "observation_rarity": 0.283578,
-      "rarity_score": 0.258505
+      "observation_rarity": 0.310367,
+      "rarity_score": 0.277257
     },
     {
       "species": "Calidris temminckii",
       "scientificName": "Calidris temminckii (Leisler, 1812)",
-      "count": 5,
-      "native": true,
+      "count": 12,
+      "native": false,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.88692,
+      "rarity_score": 0.680844
     },
     {
       "species": "Lophura leucomelanos",
       "scientificName": "Lophura leucomelanos (Latham, 1790)",
-      "count": 12,
+      "count": 15,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3459762562611936,
       "unique_location_count": 8,
-      "observation_rarity": 0.323515,
-      "rarity_score": 0.286461
+      "observation_rarity": 0.860708,
+      "rarity_score": 0.662496
     },
     {
       "species": "Columba pulchricollis",
       "scientificName": "Columba pulchricollis Blyth, 1846",
-      "count": 8,
+      "count": 65,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.302183
+      "observation_rarity": 0.522046,
+      "rarity_score": 0.425432
     },
     {
       "species": "Garrulax leucolophus",
       "scientificName": "Garrulax leucolophus (Hardwicke, 1816)",
-      "count": 9,
+      "count": 14,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.339623,
-      "rarity_score": 0.297736
+      "observation_rarity": 0.869358,
+      "rarity_score": 0.668551
     },
     {
       "species": "Pellorneum ruficeps",
       "scientificName": "Pellorneum ruficeps Swainson, 1832",
-      "count": 4,
+      "count": 9,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.913931,
+      "rarity_score": 0.699752
     },
     {
       "species": "Anthus hodgsoni",
       "scientificName": "Anthus hodgsoni Richmond, 1907",
-      "count": 15,
+      "count": 26,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36067376022224085,
       "unique_location_count": 6,
-      "observation_rarity": 0.310667,
-      "rarity_score": 0.277467
+      "observation_rarity": 0.771052,
+      "rarity_score": 0.539736
     },
     {
       "species": "Rostratula benghalensis",
       "scientificName": "Rostratula benghalensis (Linnaeus, 1758)",
-      "count": 6,
+      "count": 27,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.763379,
+      "rarity_score": 0.594366
     },
     {
       "species": "Alcippe nipalensis",
       "scientificName": "Alcippe nipalensis (Hodgson, 1837)",
-      "count": 5,
+      "count": 9,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.913931,
+      "rarity_score": 0.699752
     },
     {
       "species": "Otus lettia",
       "scientificName": "Otus lettia (Hodgson, 1836)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Anthus rufulus",
       "scientificName": "Anthus rufulus Vieillot, 1818",
-      "count": 18,
+      "count": 58,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.300102,
-      "rarity_score": 0.270071
+      "observation_rarity": 0.559898,
+      "rarity_score": 0.391929
     },
     {
       "species": "Muscicapa sibirica",
       "scientificName": "Muscicapa sibirica Gmelin, 1789",
-      "count": 3,
+      "count": 12,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.88692,
+      "rarity_score": 0.680844
     },
     {
       "species": "Seicercus whistleri",
       "scientificName": "Phylloscopus whistleri (Ticehurst, 1925)",
-      "count": 4,
+      "count": 6,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.265246
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.659235
     },
     {
       "species": "Anthus trivialis",
       "scientificName": "Anthus trivialis (Linnaeus, 1758)",
-      "count": 7,
+      "count": 9,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.352956,
-      "rarity_score": 0.307069
+      "observation_rarity": 0.913931,
+      "rarity_score": 0.639752
     },
     {
       "species": "Rhopodytes tristis",
       "scientificName": "Phaenicophaeus tristis (Lesson, 1830)",
-      "count": 2,
+      "count": 4,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.281701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.672553
     },
     {
       "species": "Pnoepyga albiventer",
       "scientificName": "Pnoepyga albiventer (Hodgson, 1837)",
-      "count": 2,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Numenius phaeopus",
       "scientificName": "Numenius phaeopus (Linnaeus, 1758)",
       "count": 1,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Amandava amandava",
       "scientificName": "Amandava amandava (Linnaeus, 1758)",
-      "count": 22,
+      "count": 43,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.288539,
-      "rarity_score": 0.261977
+      "observation_rarity": 0.650509,
+      "rarity_score": 0.455356
     },
     {
       "species": "Oriolus kundoo",
       "scientificName": "Oriolus kundoo Sykes, 1832",
-      "count": 2,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Dicaeum ignipectus",
       "scientificName": "Dicaeum ignipectus (Blyth, 1843)",
-      "count": 6,
+      "count": 15,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.860708,
+      "rarity_score": 0.662496
     },
     {
       "species": "Cuculus micropterus",
       "scientificName": "Cuculus micropterus Gould, 1838",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Horornis flavolivaceus",
       "scientificName": "Horornis flavolivaceus (Blyth, 1845)",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Amaurornis phoenicurus",
       "scientificName": "Amaurornis phoenicurus (Pennant, 1769)",
-      "count": 11,
+      "count": 19,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.35295612386476116,
       "unique_location_count": 7,
-      "observation_rarity": 0.328459,
-      "rarity_score": 0.289921
+      "observation_rarity": 0.826959,
+      "rarity_score": 0.638871
     },
     {
       "species": "Luscinia calliope",
       "scientificName": "Calliope calliope (Pallas, 1776)",
-      "count": 3,
+      "count": 7,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.27291
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.652676
     },
     {
       "species": "Ixos mcclellandii",
       "scientificName": "Ixos mcclellandii (Horsfield, 1840)",
-      "count": 7,
+      "count": 18,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.352956,
-      "rarity_score": 0.307069
+      "observation_rarity": 0.83527,
+      "rarity_score": 0.644689
     },
     {
       "species": "Buteo refectus",
       "scientificName": "Buteo refectus Portenko, 1935",
-      "count": 10,
+      "count": 17,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3396232718951086,
       "unique_location_count": 9,
-      "observation_rarity": 0.333808,
-      "rarity_score": 0.293666
+      "observation_rarity": 0.843665,
+      "rarity_score": 0.650565
     },
     {
       "species": "Vanellus cinereus",
       "scientificName": "Vanellus cinereus (Blyth, 1842)",
-      "count": 5,
+      "count": 76,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.467666,
+      "rarity_score": 0.387366
     },
     {
       "species": "Chaimarrornis leucocephalus",
       "scientificName": "Phoenicurus leucocephalus Vigors, 1831",
-      "count": 2,
+      "count": 23,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.281701
+      "observation_rarity": 0.794534,
+      "rarity_score": 0.556174
     },
     {
       "species": "Dicrurus aeneus",
       "scientificName": "Dicrurus aeneus Vieillot, 1817",
-      "count": 17,
+      "count": 28,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.303413,
-      "rarity_score": 0.272389
+      "observation_rarity": 0.755784,
+      "rarity_score": 0.589049
     },
     {
       "species": "Haliastur indus",
       "scientificName": "Haliastur indus (Boddaert, 1783)",
-      "count": 1,
+      "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Psilopogon franklinii",
       "scientificName": "Psilopogon franklinii (Blyth, 1842)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Lymnocryptes minimus",
       "scientificName": "Lymnocryptes minimus (Brünnich, 1764)",
-      "count": 1,
+      "count": 2,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Ficedula tricolor",
       "scientificName": "Ficedula tricolor (Hodgson, 1845)",
-      "count": 4,
+      "count": 13,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.878095,
+      "rarity_score": 0.674667
     },
     {
       "species": "Burhinus indicus",
       "scientificName": "Burhinus indicus (Salvadori, 1866)",
-      "count": 1,
+      "count": 7,
       "native": true,
-      "forest_dependency": 0.4,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.712676
     },
     {
       "species": "Gallinago stenura",
       "scientificName": "Gallinago stenura (Bonaparte, 1831)",
-      "count": 3,
+      "count": 17,
       "native": true,
-      "forest_dependency": 0.1,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.843665,
+      "rarity_score": 0.650565
     },
     {
       "species": "Gallinago gallinago",
       "scientificName": "Gallinago gallinago (Linnaeus, 1758)",
-      "count": 1,
+      "count": 2,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Luscinia pectoralis",
@@ -1710,19 +1710,19 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.291923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Acrocephalus dumetorum",
       "scientificName": "Acrocephalus dumetorum Blyth, 1849",
-      "count": 1,
+      "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Luscinia brunnea",
@@ -1732,195 +1732,195 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.27291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.679312
     },
     {
       "species": "Motacilla flava",
       "scientificName": "Motacilla flava Linnaeus, 1758",
-      "count": 2,
+      "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.665861
     },
     {
       "species": "Enicurus maculatus",
       "scientificName": "Enicurus maculatus Vigors, 1831",
-      "count": 2,
-      "native": true,
-      "forest_dependency": 1.0,
-      "geographic_specialization": 0.40242960438184466,
-      "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
-    },
-    {
-      "species": "Hemipus picatus",
-      "scientificName": "Hemipus picatus (Sykes, 1832)",
-      "count": 2,
-      "native": true,
-      "forest_dependency": 1.0,
-      "geographic_specialization": 0.4170323914242463,
-      "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
-    },
-    {
-      "species": "Prinia crinigera",
-      "scientificName": "Prinia crinigera Hodgson, 1836",
-      "count": 2,
-      "native": true,
-      "forest_dependency": 0.4,
-      "geographic_specialization": 0.40242960438184466,
-      "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
-    },
-    {
-      "species": "Cettia brunnifrons",
-      "scientificName": "Cettia brunnifrons (Hodgson, 1845)",
-      "count": 1,
-      "native": true,
-      "forest_dependency": 1.0,
-      "geographic_specialization": 0.4170323914242463,
-      "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
-    },
-    {
-      "species": "Alauda gulgula",
-      "scientificName": "Alauda gulgula Franklin, 1831",
-      "count": 6,
+      "count": 17,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.843665,
+      "rarity_score": 0.650565
+    },
+    {
+      "species": "Hemipus picatus",
+      "scientificName": "Hemipus picatus (Sykes, 1832)",
+      "count": 16,
+      "native": true,
+      "forest_dependency": 0.25,
+      "geographic_specialization": 0.4170323914242463,
+      "unique_location_count": 1,
+      "observation_rarity": 0.852144,
+      "rarity_score": 0.656501
+    },
+    {
+      "species": "Prinia crinigera",
+      "scientificName": "Prinia crinigera Hodgson, 1836",
+      "count": 4,
+      "native": true,
+      "forest_dependency": 0.25,
+      "geographic_specialization": 0.40242960438184466,
+      "unique_location_count": 2,
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
+    },
+    {
+      "species": "Cettia brunnifrons",
+      "scientificName": "Cettia brunnifrons (Hodgson, 1845)",
+      "count": 2,
+      "native": true,
+      "forest_dependency": 0.25,
+      "geographic_specialization": 0.4170323914242463,
+      "unique_location_count": 1,
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
+    },
+    {
+      "species": "Alauda gulgula",
+      "scientificName": "Alauda gulgula Franklin, 1831",
+      "count": 8,
+      "native": true,
+      "forest_dependency": 0.25,
+      "geographic_specialization": 0.40242960438184466,
+      "unique_location_count": 2,
+      "observation_rarity": 0.923116,
+      "rarity_score": 0.706181
     },
     {
       "species": "Accipiter nisus",
       "scientificName": "Accipiter nisus (Linnaeus, 1758)",
       "count": 3,
-      "native": true,
-      "forest_dependency": 1.0,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Tringa ochropus",
       "scientificName": "Tringa ochropus Linnaeus, 1758",
-      "count": 21,
+      "count": 101,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.3789231816899512,
       "unique_location_count": 4,
-      "observation_rarity": 0.291207,
-      "rarity_score": 0.263845
+      "observation_rarity": 0.364219,
+      "rarity_score": 0.314953
     },
     {
       "species": "Turdus unicolor",
       "scientificName": "Turdus unicolor Tickell, 1833",
-      "count": 1,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Buteo rufinus",
       "scientificName": "Buteo rufinus (Cretzschmar, 1829)",
-      "count": 1,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 4,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Iduna caligata",
       "scientificName": "Iduna caligata (Lichtenstein, 1823)",
-      "count": 2,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Sturnia pagodarum",
       "scientificName": "Sturnia pagodarum (Gmelin, 1789)",
-      "count": 3,
+      "count": 17,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.843665,
+      "rarity_score": 0.650565
     },
     {
       "species": "Motacilla citreola",
       "scientificName": "Motacilla citreola Pallas, 1776",
-      "count": 2,
+      "count": 10,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.904837,
+      "rarity_score": 0.633386
     },
     {
       "species": "Niltava sundara",
       "scientificName": "Niltava sundara Hodgson, 1837",
-      "count": 2,
+      "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Picus chlorolophus",
       "scientificName": "Picus chlorolophus Vieillot, 1818",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Lonchura striata",
       "scientificName": "Lonchura striata (Linnaeus, 1766)",
-      "count": 2,
+      "count": 6,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.659235
     },
     {
       "species": "Chloris spinoides",
       "scientificName": "Chloris spinoides (Vigors, 1831)",
       "count": 21,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.291207,
-      "rarity_score": 0.263845
+      "observation_rarity": 0.810584,
+      "rarity_score": 0.567409
     },
     {
       "species": "Minla strigula",
@@ -1930,63 +1930,63 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.291923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Tichodroma muraria",
       "scientificName": "Tichodroma muraria (Linnaeus, 1766)",
-      "count": 2,
-      "native": true,
-      "forest_dependency": 1.0,
+      "count": 6,
+      "native": false,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.719235
     },
     {
       "species": "Anthus godlewskii",
       "scientificName": "Anthus godlewskii (Taczanowski, 1876)",
-      "count": 6,
+      "count": 26,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.312472
+      "observation_rarity": 0.771052,
+      "rarity_score": 0.539736
     },
     {
       "species": "Emberiza aureola",
       "scientificName": "Emberiza aureola Pallas, 1773",
-      "count": 27,
+      "count": 39,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.276938,
-      "rarity_score": 0.493857
+      "observation_rarity": 0.677057,
+      "rarity_score": 0.47394
     },
     {
       "species": "Zoothera monticola",
       "scientificName": "Zoothera monticola Vigors, 1832",
-      "count": 1,
+      "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Porzana fusca",
       "scientificName": "Zapornia fusca (Linnaeus, 1766)",
-      "count": 4,
+      "count": 5,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.265246
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.665861
     },
     {
       "species": "Ictinaetus malayensis",
@@ -1996,52 +1996,52 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.258489
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.665861
     },
     {
       "species": "Cuculus poliocephalus",
       "scientificName": "Cuculus poliocephalus Latham, 1790",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Gyps himalayensis",
       "scientificName": "Gyps himalayensis Hume, 1869",
       "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.39291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.799312
     },
     {
       "species": "Pomatorhinus ruficollis",
       "scientificName": "Pomatorhinus ruficollis Hodgson, 1836",
-      "count": 1,
+      "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Stachyridopsis pyrrhops",
       "scientificName": "Cyanoderma pyrrhops (Blyth, 1844)",
-      "count": 5,
+      "count": 7,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.258489
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.652676
     },
     {
       "species": "Phylloscopus collybita",
@@ -2051,30 +2051,30 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.281701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.686139
     },
     {
       "species": "Anas crecca",
       "scientificName": "Anas crecca Linnaeus, 1758",
       "count": 3,
-      "native": true,
-      "forest_dependency": 0.1,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Geokichla wardii",
       "scientificName": "Geokichla wardii (Blyth, 1843)",
-      "count": 1,
+      "count": 6,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.941765,
+      "rarity_score": 0.719235
     },
     {
       "species": "Zoothera dauma",
@@ -2084,184 +2084,184 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.291923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Carpodacus erythrinus",
       "scientificName": "Carpodacus erythrinus (Pallas, 1770)",
-      "count": 2,
+      "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.672553
     },
     {
       "species": "Leiothrix lutea",
       "scientificName": "Leiothrix lutea (Scopoli, 1786)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Emberiza pusilla",
       "scientificName": "Emberiza pusilla Pallas, 1776",
-      "count": 0,
+      "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.0,
-      "rarity_score": 0.06
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Cinclus pallasii",
       "scientificName": "Cinclus pallasii Temminck, 1820",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Coturnix coturnix",
       "scientificName": "Coturnix coturnix (Linnaeus, 1758)",
       "count": 1,
-      "native": true,
-      "forest_dependency": 1.0,
+      "native": false,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.813035
     },
     {
       "species": "Alcedo atthis",
       "scientificName": "Alcedo atthis (Linnaeus, 1758)",
       "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Trochalopteron erythrocephalum",
       "scientificName": "Trochalopteron erythrocephalum (Vigors, 1832)",
       "count": 12,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.323515,
-      "rarity_score": 0.286461
+      "observation_rarity": 0.88692,
+      "rarity_score": 0.680844
     },
     {
       "species": "Phylloscopus maculipennis",
       "scientificName": "Phylloscopus maculipennis (Blyth, 1867)",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Dendrocitta vagabunda",
       "scientificName": "Dendrocitta vagabunda (Latham, 1790)",
       "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Cinnyris asiaticus",
       "scientificName": "Cinnyris asiaticus (Latham, 1790)",
       "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Tarsiger rufilatus",
       "scientificName": "Tarsiger rufilatus (Hodgson, 1845)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Stachyris nigriceps",
       "scientificName": "Stachyris nigriceps Blyth, 1844",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Prinia hodgsonii",
       "scientificName": "Prinia hodgsonii Blyth, 1844",
-      "count": 0,
+      "count": 1,
       "native": true,
-      "forest_dependency": 0.4,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.0,
-      "rarity_score": 0.06
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Iduna aedon",
       "scientificName": "Arundinax aedon (Pallas, 1776)",
-      "count": 5,
+      "count": 9,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.258489
+      "observation_rarity": 0.913931,
+      "rarity_score": 0.639752
     },
     {
       "species": "Phylloscopus pulcher",
       "scientificName": "Phylloscopus pulcher Blyth, 1845",
       "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.3898712452512801,
       "unique_location_count": 3,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Apus leuconyx",
       "scientificName": "Apus leuconyx (Blyth, 1845)",
-      "count": 0,
+      "count": 1,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.0,
-      "rarity_score": 0.0
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Monticola cinclorhynchus",
@@ -2271,19 +2271,19 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.291923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Yuhina flavicollis",
       "scientificName": "Yuhina flavicollis Hodgson, 1836",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Anser cygnoides",
@@ -2293,74 +2293,74 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.27291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.679312
     },
     {
       "species": "Nyctyornis athertoni",
       "scientificName": "Nyctyornis athertoni (Jardine & Selby, 1828)",
       "count": 3,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Phylloscopus affinis",
       "scientificName": "Phylloscopus affinis (Tickell, 1833)",
-      "count": 8,
+      "count": 16,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.345976,
-      "rarity_score": 0.302183
+      "observation_rarity": 0.852144,
+      "rarity_score": 0.656501
     },
     {
       "species": "Turdus albocinctus",
       "scientificName": "Turdus albocinctus Royle, 1840",
       "count": 4,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.378923,
-      "rarity_score": 0.325246
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Strix leptogrammica",
       "scientificName": "Strix leptogrammica Temminck, 1832",
-      "count": 1,
+      "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Sarcogyps calvus",
       "scientificName": "Sarcogyps calvus (Scopoli, 1786)",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.581701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.986139
     },
     {
       "species": "Chloropsis hardwickii",
       "scientificName": "Chloropsis hardwickii Jardine & Selby, 1830",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Surniculus lugubris",
@@ -2370,63 +2370,63 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.27291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.679312
     },
     {
       "species": "Pernis ptilorhynchus",
       "scientificName": "Pernis ptilorhynchus (Temminck, 1821)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Nisaetus nipalensis",
       "scientificName": "Nisaetus nipalensis Hodgson, 1836",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.411923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.813035
     },
     {
       "species": "Enicurus schistaceus",
       "scientificName": "Enicurus schistaceus (Hodgson, 1836)",
-      "count": 0,
+      "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.0,
-      "rarity_score": 0.06
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Emberiza melanocephala",
       "scientificName": "Emberiza melanocephala Scopoli, 1769",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Lanius vittatus",
       "scientificName": "Lanius vittatus Valenciennes, 1826",
       "count": 1,
       "native": true,
-      "forest_dependency": 0.4,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Muscicapa muttui",
@@ -2436,74 +2436,74 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.281701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.686139
     },
     {
       "species": "Phylloscopus inornatus",
       "scientificName": "Phylloscopus inornatus (Blyth, 1842)",
       "count": 2,
-      "native": true,
-      "forest_dependency": 1.0,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Phylloscopus chloronotus",
       "scientificName": "Phylloscopus chloronotus (J.E.Gray & G.R.Gray, 1847)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Lonchura malacca",
       "scientificName": "Lonchura malacca (Linnaeus, 1766)",
-      "count": 5,
+      "count": 7,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.258489
+      "observation_rarity": 0.932394,
+      "rarity_score": 0.652676
     },
     {
       "species": "Ficedula westermanni",
       "scientificName": "Ficedula westermanni (Sharpe, 1888)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Aegithina tiphia",
       "scientificName": "Aegithina tiphia (Linnaeus, 1758)",
-      "count": 1,
+      "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Turdoides nipalensis",
       "scientificName": "Turdoides nipalensis (Hodgson, 1836)",
-      "count": 6,
+      "count": 8,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.36926937306885504,
       "unique_location_count": 5,
-      "observation_rarity": 0.360674,
-      "rarity_score": 0.252472
+      "observation_rarity": 0.923116,
+      "rarity_score": 0.646181
     },
     {
       "species": "Tringa nebularia",
@@ -2513,19 +2513,19 @@
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Coracias benghalensis",
       "scientificName": "Coracias benghalensis (Linnaeus, 1758)",
       "count": 1,
       "native": true,
-      "forest_dependency": 0.8,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.411923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.813035
     },
     {
       "species": "Ibidorhyncha struthersii",
@@ -2535,63 +2535,63 @@
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Zoothera marginata",
       "scientificName": "Zoothera marginata Blyth, 1847",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Saxicola ferreus",
       "scientificName": "Saxicola ferreus J.E.Gray & G.R.Gray, 1847",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Spatula querquedula",
       "scientificName": "Spatula querquedula (Linnaeus, 1758)",
-      "count": 3,
+      "count": 5,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Pnoepyga pusilla",
       "scientificName": "Pnoepyga pusilla Hodgson, 1845",
-      "count": 3,
+      "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Treron sphenurus",
       "scientificName": "Treron sphenurus (Vigors, 1832)",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Tadorna ferruginea",
@@ -2601,63 +2601,63 @@
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Mergus merganser",
       "scientificName": "Mergus merganser Linnaeus, 1758",
       "count": 3,
-      "native": true,
+      "native": false,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.389871,
-      "rarity_score": 0.33291
+      "observation_rarity": 0.970446,
+      "rarity_score": 0.739312
     },
     {
       "species": "Dicrurus hottentottus",
       "scientificName": "Dicrurus hottentottus (Linnaeus, 1766)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Procarduelis nipalensis",
       "scientificName": "Procarduelis nipalensis (Hodgson, 1836)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Charadrius alexandrinus",
       "scientificName": "Anarhynchus alexandrinus",
-      "count": 2,
+      "count": 4,
       "native": true,
       "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.960789,
+      "rarity_score": 0.732553
     },
     {
       "species": "Myiomela leucura",
       "scientificName": "Myiomela leucura (Hodgson, 1845)",
       "count": 2,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.40242960438184466,
       "unique_location_count": 2,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.341701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.746139
     },
     {
       "species": "Suthora nipalensis",
@@ -2667,52 +2667,52 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.40243,
-      "rarity_score": 0.281701
+      "observation_rarity": 0.980199,
+      "rarity_score": 0.686139
     },
     {
       "species": "Chalcophaps indica",
       "scientificName": "Chalcophaps indica (Linnaeus, 1758)",
       "count": 1,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.351923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.753035
     },
     {
       "species": "Abroscopus schisticeps",
       "scientificName": "Abroscopus schisticeps (J.E.Gray & G.R.Gray, 1847)",
       "count": 5,
       "native": true,
-      "forest_dependency": 1.0,
+      "forest_dependency": 0.1,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.369269,
-      "rarity_score": 0.318489
+      "observation_rarity": 0.951229,
+      "rarity_score": 0.725861
     },
     {
       "species": "Cuculus varius",
       "scientificName": "Hierococcyx varius (Vahl, 1797)",
-      "count": 0,
+      "count": 1,
       "native": false,
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.0,
-      "rarity_score": 0.0
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     },
     {
       "species": "Neophron percnopterus",
       "scientificName": "Neophron percnopterus (Linnaeus, 1758)",
       "count": 1,
-      "native": true,
-      "forest_dependency": 1.0,
+      "native": false,
+      "forest_dependency": 0.25,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.531923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.873035
     },
     {
       "species": "Emberiza schoeniclus",
@@ -2722,8 +2722,8 @@
       "forest_dependency": 0.0,
       "geographic_specialization": 0.4170323914242463,
       "unique_location_count": 1,
-      "observation_rarity": 0.417032,
-      "rarity_score": 0.291923
+      "observation_rarity": 0.99005,
+      "rarity_score": 0.693035
     }
   ]
 }

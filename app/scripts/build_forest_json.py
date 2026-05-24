@@ -362,21 +362,9 @@ def slim_row(row: dict[str, str]) -> dict[str, Any]:
     return out
 
 
-def dedupe_rows(rows: list[dict[str, str]]) -> list[dict[str, str]]:
-    """One entry per species + locality (reduces duplicate GBIF occurrences)."""
-    seen: set[tuple[str, str]] = set()
-    unique: list[dict[str, str]] = []
-    for row in rows:
-        key = (row.get("species") or "", row.get("locality") or "")
-        if key in seen:
-            continue
-        seen.add(key)
-        unique.append(row)
-    return unique
-
 
 def prepare_output_rows(rows: list[dict[str, str]], filters: dict[str, Any]) -> list[dict[str, Any]]:
-    slimmed = [slim_row(row) for row in dedupe_rows(rows)]
+    slimmed = [slim_row(row) for row in rows]
     limit = filters.get("limit")
     if limit is not None:
         slimmed = slimmed[: int(limit)]
@@ -477,7 +465,12 @@ def aggregate_rows(
         if not species:
             continue
         sci = row.get("scientificName")
-        count = int(row.get("individualCount") or 0)
+        count_raw = row.get("individualCount")
+
+        if count_raw in (None, "", "0"):
+            count = 1
+        else:
+            count = int(float(count_raw))
         total_individuals += count
 
         # ---- Native flag ----
@@ -485,7 +478,7 @@ def aggregate_rows(
         if native_set:
             is_native = species in native_set
         elif query_country:
-            is_native = row.get("countryCode") == query_country
+            is_native = species in native_set if native_set else False
 
         # ---- Location tracking ----
         loc = (row.get("locality") or "").strip()
@@ -508,19 +501,42 @@ def aggregate_rows(
 
         # ---- Habitat / forest dependency ----
         # Only needs to be set once — habitat doesn't change per row
+        # ---- Habitat / forest dependency ----
         if habitat_map and species_stats[species]["forest_dependency"] == 0.0:
             habitats = habitat_map.get(species, [])
             dep_weight = 0.0
+
+            FOREST_KEYWORDS = {
+                "primary forest": 1.0,
+                "cloud forest": 1.0,
+                "montane forest": 0.95,
+                "temperate forest": 0.9,
+                "broadleaf forest": 0.9,
+                "coniferous forest": 0.9,
+                "forest edge": 0.5,
+                "secondary forest": 0.5,
+                "woodland": 0.45,
+                "shrubland": 0.25,
+                "grassland": 0.1,
+                "wetland": 0.1,
+                "urban": 0.0,
+                "farmland": 0.0,
+                "agricultural": 0.0,
+            }
+
             for h in habitats:
                 h_low = h.lower()
-                if "forest" in h_low:
-                    dep_weight = max(dep_weight, 1.0)
-                elif "woodland" in h_low or "wood" in h_low:
-                    dep_weight = max(dep_weight, 0.8)
-                elif "shrub" in h_low or "bush" in h_low:
-                    dep_weight = max(dep_weight, 0.4)
-                else:
+
+                matched = False
+
+                for keyword, score in FOREST_KEYWORDS.items():
+                    if keyword in h_low:
+                        dep_weight = max(dep_weight, score)
+                        matched = True
+
+                if not matched:
                     dep_weight = max(dep_weight, 0.1)
+
             species_stats[species]["forest_dependency"] = dep_weight
 
     # ---- Post-processing: rarity and geo-specialization ----
@@ -534,7 +550,7 @@ def aggregate_rows(
         stats["unique_location_count"] = unique_locs
 
         total_count = stats["count"]
-        obs_rarity = 1 / math.log(total_count + 10) if total_count > 0 else 0.0
+        obs_rarity = obs_rarity = math.exp(-0.01 * total_count) if total_count > 0 else 0.0
         iucn_score = (rarity_map.get(sp, 0.0) if rarity_map else 0.0)
         stats["observation_rarity"] = round(obs_rarity, 6)
         stats["rarity_score"] = round(0.7 * obs_rarity + 0.3 * iucn_score, 6)
