@@ -1,7 +1,7 @@
 # Ignore dataset files and temporary outputs
 *.csv
 *.xlsx
-*.index.plk
+
 *.txt
 
 requirements*.txt

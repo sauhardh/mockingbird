@@ -114,13 +114,27 @@ async def save_health_score(db, recording_id: str, score_result: dict):
         explanation_json
     )
 
-async def mark_complete(db, recording_id: str, health_score: int):
+async def mark_complete(db, recording_id: str, health_score: int, extra: dict | None = None):
     rec_uuid = uuid.UUID(recording_id) if isinstance(recording_id, str) else recording_id
+    extra = extra or {}
     await db.execute("""
         UPDATE recordings
-        SET health_score = $1, processing_status = 'complete', quality_pass = TRUE
+        SET health_score = $1,
+            processing_status = 'complete',
+            quality_pass = TRUE,
+            feature_vector = $3,
+            feature_schema_v = $4,
+            model_version = $5,
+            confidence_margin = $6
         WHERE id = $2
-    """, int(health_score), rec_uuid)
+    """,
+        int(health_score),
+        rec_uuid,
+        json.dumps(extra.get("feature_vector")) if extra.get("feature_vector") is not None else None,
+        extra.get("feature_schema_v"),
+        extra.get("model_version"),
+        extra.get("confidence_margin"),
+    )
 
 async def get_map_pins(db) -> list[dict]:
     query = """
@@ -169,3 +183,29 @@ async def get_nepal_species_reference(db) -> dict:
             "season_present": r['season_present']
         }
     return ref
+
+
+async def save_species_enrichment(db, recording_id: str, species_code: str, context: dict):
+    rec_uuid = uuid.UUID(recording_id) if isinstance(recording_id, str) else recording_id
+    await db.execute("""
+        INSERT INTO species_enrichment (recording_id, species_code, context_json)
+        VALUES ($1, $2, $3)
+    """, rec_uuid, species_code, json.dumps(context))
+
+
+async def get_species_enrichment(db, recording_id: str) -> list[dict]:
+    rec_uuid = uuid.UUID(recording_id) if isinstance(recording_id, str) else recording_id
+    rows = await db.fetch("""
+        SELECT species_code, context_json, created_at
+        FROM species_enrichment
+        WHERE recording_id = $1
+        ORDER BY created_at
+    """, rec_uuid)
+    return [
+        {
+            "species_code": r["species_code"],
+            "context": json.loads(r["context_json"]) if isinstance(r["context_json"], str) else r["context_json"],
+            "created_at": r["created_at"].isoformat() if r["created_at"] else None,
+        }
+        for r in rows
+    ]

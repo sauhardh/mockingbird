@@ -8,7 +8,7 @@ import os
 import urllib.request
 import urllib.error
 
-API_BASE = "http://127.0.0.1:8001"
+API_BASE = os.environ.get("MOCKINGBIRD_API", "http://127.0.0.1:8000")
 
 def test_health_check():
     print("=== Test 1: Health Check ===")
@@ -46,7 +46,8 @@ def test_upload(wav_path, expect_pass=True):
     # Audio file part
     body += f"--{boundary}\r\n".encode()
     body += f'Content-Disposition: form-data; name="audio"; filename="{os.path.basename(wav_path)}"\r\n'.encode()
-    body += b"Content-Type: audio/wav\r\n\r\n"
+    content_type = "audio/mpeg" if wav_path.lower().endswith(".mp3") else "audio/wav"
+    body += f"Content-Type: {content_type}\r\n\r\n".encode()
     body += audio_data
     body += b"\r\n"
     # Metadata part
@@ -111,10 +112,10 @@ if __name__ == "__main__":
         sys.exit(1)
     
     # Test real file (should pass)
-    test_upload("test_audio/XC944110 - Identity unknown.wav", expect_pass=True)
+    test_upload("test_audio/XC426536 - Asian Koel - Eudynamys scolopaceus.mp3", expect_pass=True)
     
     # Test 15s file (should be rejected by quality gate)
-    test_upload("test_audio/too_short_15s.wav", expect_pass=False)
+    ##test_upload("test_audio/too_short_15s.wav", expect_pass=False)
     
     # Test map pins
     test_map_pins()

@@ -11,7 +11,9 @@ Layer 4: Soundscape Indices (ACI, BI, NDSI, H, M via scikit-maad)
 
 import os
 import logging
+import math
 import numpy as np
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -56,8 +58,10 @@ def classify_altitude(altitude_m: float) -> str:
 
 def quality_gate(wav_path: str) -> dict:
     """
-    Pre-check: minimum duration + NDSI anthrophony threshold.
-    Returns dict with 'pass', 'message', 'duration_sec', 'ndsi_anth'.
+    Pre-check: minimum duration + anthrophony threshold.
+    Uses anthro_energy ratio (not NDSI biophony) — long sparse bird recordings
+    can have low average NDSI but still be valid field audio.
+    Returns dict with 'pass', 'message', 'duration_sec', 'ndsi_anth', 'ndsi_bio'.
     """
     import librosa
 
@@ -75,24 +79,34 @@ def quality_gate(wav_path: str) -> dict:
             "duration_sec": int(duration_sec),
         }
 
-    # Compute NDSI anthrophony via scikit-maad
-    ndsi_anth = 0.5  # neutral fallback
+    ndsi_bio = 0.0
+    ndsi_anth = 0.5
     try:
         import maad.sound
         import maad.features
         Sxx, tn, fn, ext = maad.sound.spectrogram(y, sr)
         spectral, _ = maad.features.all_spectral_alpha_indices(Sxx, tn, fn)
-        # NDSI from scikit-maad; use as proxy for anthrophony level
-        ndsi_anth = float(spectral['NDSI'].iloc[0]) if 'NDSI' in spectral.columns else 0.5
+
+        ndsi_bio = float(spectral["NDSI"].iloc[0]) if "NDSI" in spectral.columns else 0.0
+        bio_energy = float(spectral["BioEnergy"].iloc[0]) if "BioEnergy" in spectral.columns else 0.0
+        anthro_energy = float(spectral["AnthroEnergy"].iloc[0]) if "AnthroEnergy" in spectral.columns else 0.0
+        total_energy = bio_energy + anthro_energy
+        if total_energy > 0:
+            ndsi_anth = anthro_energy / total_energy
+        else:
+            ndsi_anth = 0.5
     except Exception as e:
         logger.warning(f"NDSI computation failed, using fallback: {e}")
 
-    if ndsi_anth < 0.3:
+    # Reject when human/anthrophony dominates (high ndsi_anth), not when biophony is sparse
+    ANTHRO_REJECT_THRESHOLD = 0.65
+    if ndsi_anth > ANTHRO_REJECT_THRESHOLD:
         return {
             "pass": False,
             "message": "Too much background noise (wind, traffic, voices). "
                        "Move further from noise sources and try again.",
             "ndsi_anth": ndsi_anth,
+            "ndsi_bio": ndsi_bio,
             "duration_sec": int(duration_sec),
         }
 
@@ -100,6 +114,7 @@ def quality_gate(wav_path: str) -> dict:
         "pass": True,
         "duration_sec": int(duration_sec),
         "ndsi_anth": float(ndsi_anth),
+        "ndsi_bio": float(ndsi_bio),
     }
 
 
@@ -199,34 +214,110 @@ def run_birdnet(wav_path: str, meta: dict) -> list[dict]:
     return detections
 
 
+# ── Layer 3 helpers ────────────────────────────────────────────────────
+
+def _parse_month(recorded_at) -> int | None:
+    if recorded_at is None:
+        return None
+    try:
+        if isinstance(recorded_at, str):
+            return datetime.fromisoformat(recorded_at.replace("Z", "+00:00")).month
+        return recorded_at.month
+    except (ValueError, AttributeError):
+        return None
+
+
+def _month_in_season(month: int | None, season_present: list | None) -> bool:
+    if month is None or not season_present:
+        return True
+    month_map = {
+        12: "winter", 1: "winter", 2: "winter",
+        3: "pre_monsoon", 4: "pre_monsoon", 5: "pre_monsoon",
+        6: "monsoon", 7: "monsoon", 8: "monsoon", 9: "monsoon",
+        10: "post_monsoon", 11: "post_monsoon",
+    }
+    bucket = month_map.get(month, "resident")
+    normalized = {s.lower() for s in season_present}
+    return bucket in normalized or "resident" in normalized or "all" in normalized
+
+
+def _altitude_plausible(altitude_m: float, ref: dict) -> bool:
+    alt_min = ref.get("altitude_min_m")
+    alt_max = ref.get("altitude_max_m")
+    if alt_min is None and alt_max is None:
+        return True
+    lo = float(alt_min if alt_min is not None else 0)
+    hi = float(alt_max if alt_max is not None else 9000)
+    return lo <= altitude_m <= hi
+
+
 # ── Layer 3: Nepal Calibration ─────────────────────────────────────────
 
-def calibrate_detections(detections: list[dict], nepal_ref: dict) -> list[dict]:
+def calibrate_detections(
+    detections: list[dict],
+    nepal_ref: dict,
+    altitude_m: float | None = None,
+    recorded_at=None,
+) -> list[dict]:
     """
     Cross-reference detections against nepal_species_reference.
     - Drop species never recorded in Nepal
-    - Mark endemic / threatened species
+    - Drop altitude-implausible species
+    - Penalize confidence when season mismatch
     """
+    month = _parse_month(recorded_at)
     calibrated = []
+    dropped = {"not_in_ref": 0, "altitude": 0, "low_conf": 0}
+
     for d in detections:
-        code = d['species_code']
+        code = d["species_code"]
         ref = nepal_ref.get(code)
 
         if ref is None:
-            # Species not in Nepal reference — drop
+            dropped["not_in_ref"] += 1
             continue
 
-        d['confidence_cal'] = d['confidence_raw']
-        d['is_endemic'] = ref.get('is_endemic', False)
-        d['is_threatened'] = ref.get('is_threatened', False)
-        d['threat_category'] = ref.get('threat_category')
+        altitude_match = True
+        if altitude_m is not None and not _altitude_plausible(altitude_m, ref):
+            dropped["altitude"] += 1
+            continue
+
+        conf = float(d["confidence_raw"])
+        season_ok = _month_in_season(month, ref.get("season_present"))
+        if not season_ok:
+            conf *= 0.85
+
+        if conf < 0.25:
+            dropped["low_conf"] += 1
+            continue
+
+        d = dict(d)
+        d["confidence_cal"] = conf
+        d["altitude_match"] = altitude_match
+        d["is_endemic"] = ref.get("is_endemic", False)
+        d["is_threatened"] = ref.get("is_threatened", False)
+        d["threat_category"] = ref.get("threat_category")
         calibrated.append(d)
 
-    logger.info(f"Calibration: {len(detections)} raw -> {len(calibrated)} Nepal-verified")
+    logger.info(
+        "Calibration: %d raw -> %d Nepal-verified (dropped ref=%d alt=%d conf=%d)",
+        len(detections), len(calibrated),
+        dropped["not_in_ref"], dropped["altitude"], dropped["low_conf"],
+    )
     return calibrated
 
 
 # ── Layer 4: Soundscape Indices ────────────────────────────────────────
+
+def _clean_index(val):
+    if val is None:
+        return None
+    try:
+        f = float(val)
+        return None if math.isnan(f) or math.isinf(f) else f
+    except (TypeError, ValueError):
+        return None
+
 
 def compute_indices(wav_path: str) -> dict:
     """
@@ -254,18 +345,18 @@ def compute_indices(wav_path: str) -> dict:
 
         # Temporal indices
         temporal = maad.features.all_temporal_alpha_indices(y, sr)
-        result["h_temporal"] = float(temporal['Ht'].iloc[0]) if 'Ht' in temporal.columns else None
-        result["m_median"] = float(temporal['MED'].iloc[0]) if 'MED' in temporal.columns else None
+        result["h_temporal"] = _clean_index(temporal['Ht'].iloc[0]) if 'Ht' in temporal.columns else None
+        result["m_median"] = _clean_index(temporal['MED'].iloc[0]) if 'MED' in temporal.columns else None
 
         # Spectral indices
         Sxx, tn, fn, ext = maad.sound.spectrogram(y, sr)
         spectral, _ = maad.features.all_spectral_alpha_indices(Sxx, tn, fn)
-        
-        result["aci"] = float(spectral['ACI'].iloc[0]) if 'ACI' in spectral.columns else None
-        result["bi"] = float(spectral['BI'].iloc[0]) if 'BI' in spectral.columns else None
-        result["h_spectral"] = float(spectral['Hf'].iloc[0]) if 'Hf' in spectral.columns else None
-        result["adi"] = float(spectral['ADI'].iloc[0]) if 'ADI' in spectral.columns else None
-        
+
+        result["aci"] = _clean_index(spectral['ACI'].iloc[0]) if 'ACI' in spectral.columns else None
+        result["bi"] = _clean_index(spectral['BI'].iloc[0]) if 'BI' in spectral.columns else None
+        result["h_spectral"] = _clean_index(spectral['Hf'].iloc[0]) if 'Hf' in spectral.columns else None
+        result["adi"] = _clean_index(spectral['ADI'].iloc[0]) if 'ADI' in spectral.columns else None
+
         # Compute NDSI components (biophony vs anthrophony) separately
         # ndsi_bio is NDSI itself
         # ndsi_anth is AnthroEnergy / (BioEnergy + AnthroEnergy)
@@ -273,8 +364,8 @@ def compute_indices(wav_path: str) -> dict:
         anthro_energy = float(spectral['AnthroEnergy'].iloc[0]) if 'AnthroEnergy' in spectral.columns else 0
         total_energy = bio_energy + anthro_energy
         
-        ndsi = float(spectral['NDSI'].iloc[0]) if 'NDSI' in spectral.columns else 0.0
-        result["ndsi_bio"] = ndsi
+        ndsi = _clean_index(spectral['NDSI'].iloc[0]) if 'NDSI' in spectral.columns else 0.0
+        result["ndsi_bio"] = ndsi if ndsi is not None else 0.0
         
         if total_energy > 0:
             result["ndsi_anth"] = anthro_energy / total_energy
@@ -287,55 +378,82 @@ def compute_indices(wav_path: str) -> dict:
     return result
 
 
+def process_audio(wav_path: str, meta: dict, nepal_ref: dict) -> dict:
+    """
+    Run Layers 1–4 and return flat dict for Feature Builder.
+    Does not score or persist.
+    """
+    clean_path = wav_path.replace(".wav", "_clean.wav").replace(".mp3", "_clean.wav")
+    if not clean_path.endswith("_clean.wav"):
+        clean_path = wav_path + "_clean.wav"
+
+    try:
+        preprocess_audio(wav_path, clean_path)
+    except Exception as e:
+        logger.error("Preprocessing failed: %s", e)
+        clean_path = wav_path
+
+    raw_detections = run_birdnet(clean_path, meta)
+    detections = calibrate_detections(
+        raw_detections,
+        nepal_ref,
+        altitude_m=meta.get("altitude_m"),
+        recorded_at=meta.get("recorded_at"),
+    )
+    indices = compute_indices(clean_path)
+
+    if clean_path != wav_path and os.path.exists(clean_path):
+        try:
+            os.remove(clean_path)
+        except OSError:
+            pass
+
+    enriched_meta = dict(meta)
+    if "altitude_zone" not in enriched_meta and meta.get("altitude_m") is not None:
+        enriched_meta["altitude_zone"] = classify_altitude(float(meta["altitude_m"]))
+
+    return {
+        "species": detections,
+        "indices": indices,
+        "meta": enriched_meta,
+    }
+
+
 # ── Pipeline Orchestrator ──────────────────────────────────────────────
 
 async def run_pipeline(wav_path: str, meta: dict, recording_id: str, db) -> dict:
     """
-    Full pipeline: preprocess -> BirdNET -> calibrate -> indices -> score -> persist.
+    Full pipeline: process_audio -> feature_builder -> MLP score -> persist.
     """
-    from backend.health_index import compute_health_score
+    from feature_builder import build_features
+    from MLP_PIPELINE.scoring_service import score, score_result_to_dict
     from db.helpers import (
         save_detections, save_indices, save_health_score, mark_complete
     )
 
-    # 1. Preprocess
-    clean_path = wav_path.replace('.wav', '_clean.wav')
-    try:
-        preprocess_audio(wav_path, clean_path)
-    except Exception as e:
-        logger.error(f"Preprocessing failed: {e}")
-        clean_path = wav_path  # fall back to raw audio
-
-    # 2. BirdNET
-    raw_detections = run_birdnet(clean_path, meta)
-
-    # 3. Calibrate
     nepal_ref = await db.get_nepal_species_reference()
-    detections = calibrate_detections(raw_detections, nepal_ref)
+    pipeline_out = process_audio(wav_path, meta, nepal_ref)
 
-    # 4. Soundscape indices
-    indices = compute_indices(clean_path)
+    detections = pipeline_out["species"]
+    indices = pipeline_out["indices"]
+    enriched_meta = pipeline_out["meta"]
 
-    # 5. Health Index
-    score_result = compute_health_score(detections, indices, meta)
+    features = build_features(pipeline_out, enriched_meta, nepal_ref)
+    score_result = score(features, detections, indices, enriched_meta)
+    score_dict = score_result_to_dict(score_result)
 
-    # 6. Persist
     await save_detections(db, recording_id, detections)
     await save_indices(db, recording_id, indices)
-    await save_health_score(db, recording_id, score_result)
-    await mark_complete(db, recording_id, score_result['health_score'])
-
-    # Cleanup temp files
-    for path in [clean_path]:
-        if path != wav_path and os.path.exists(path):
-            try:
-                os.remove(path)
-            except OSError:
-                pass
+    await save_health_score(db, recording_id, score_dict)
+    await mark_complete(db, recording_id, score_dict["health_score"], extra={
+        "feature_vector": features.to_dict(),
+        "feature_schema_v": features.schema_version,
+        "model_version": score_dict["model_version"],
+        "confidence_margin": score_dict["confidence_margin"],
+    })
 
     return {
-        "health_score": score_result['health_score'],
-        "components": score_result['components'],
-        "explanation": score_result['explanation'],
+        **score_dict,
         "species": detections,
+        "feature_vector": features.to_dict(),
     }

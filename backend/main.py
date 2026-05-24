@@ -8,8 +8,11 @@ import uuid
 import os
 import tempfile
 import logging
+import asyncio
+from functools import lru_cache
 
-from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Query
+from pydantic import BaseModel
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -77,6 +80,16 @@ app.add_middleware(
 )
 
 
+# ── RAG proxy models (no changes to RAG service itself) ─────────────────
+
+class RagQueryRequest(BaseModel):
+    query: str
+    top_k: int = 5
+
+
+RAG_BASE_URL = os.environ.get("RAG_BASE_URL", "http://127.0.0.1:8005")
+
+
 # ── Routes ─────────────────────────────────────────────────────────────
 
 @app.get("/")
@@ -87,7 +100,13 @@ async def health_check():
 @app.post("/recordings/upload")
 async def upload_recording(
     audio: UploadFile = File(...),
-    metadata: str = Form(...),
+    metadata: str = Form(
+        ...,
+        description='JSON string, e.g. {"lat":27.7172,"lon":85.3240,"altitude_m":1400,"recorded_at":"2026-05-24T08:00:00Z","user_id":"00000000-0000-0000-0000-000000000000"}',
+        json_schema_extra={
+            "example": '{"lat": 27.7172, "lon": 85.3240, "altitude_m": 1400, "recorded_at": "2026-05-24T08:00:00Z", "user_id": "00000000-0000-0000-0000-000000000000"}',
+        },
+    ),
 ):
     """
     Upload a WAV recording + GPS metadata.
@@ -104,7 +123,10 @@ async def upload_recording(
     try:
         meta = json.loads(metadata)
     except json.JSONDecodeError:
-        raise HTTPException(status_code=400, detail="Invalid metadata JSON")
+        raise HTTPException(
+            status_code=400,
+            detail='Invalid metadata JSON. Required format: {"lat": 27.7, "lon": 85.3, "altitude_m": 1400, "recorded_at": "2026-05-24T08:00:00Z"}',
+        )
 
     # Validate required fields
     required = ['lat', 'lon', 'altitude_m', 'recorded_at']
@@ -191,14 +213,14 @@ async def upload_recording(
         async with pool.acquire() as conn:
             await orig_save_hs(conn, rec_id, score_result)
 
-    async def _mark_complete(db_obj, rec_id, health_score):
+    async def _mark_complete(db_obj, rec_id, health_score, extra=None):
         async with pool.acquire() as conn:
-            await orig_mark(conn, rec_id, health_score)
+            await orig_mark(conn, rec_id, health_score, extra=extra)
 
     _h.save_detections = lambda conn, rid, d: _save_detections(None, rid, d)
     _h.save_indices = lambda conn, rid, i: _save_indices(None, rid, i)
     _h.save_health_score = lambda conn, rid, s: _save_health_score(None, rid, s)
-    _h.mark_complete = lambda conn, rid, s: _mark_complete(None, rid, s)
+    _h.mark_complete = lambda conn, rid, s, extra=None: _mark_complete(None, rid, s, extra)
 
     try:
         result = await run_pipeline(tmp_path, meta, recording_id, db)
@@ -225,13 +247,82 @@ async def upload_recording(
         except OSError:
             pass
 
+    # Async RAG enrichment — never blocks response
+    from backend.enrichment import enrich_species
+    asyncio.create_task(enrich_species(recording_id, result.get("species", []), pool))
+
     return {
         "recording_id": recording_id,
-        "health_score": result['health_score'],
-        "components": result['components'],
-        "explanation": result['explanation'],
-        "species": result['species'],
+        "health_score": result["health_score"],
+        "confidence_interval": result.get("confidence_interval"),
+        "health_category": result.get("health_category"),
+        "model_version": result.get("model_version"),
+        "components": result["components"],
+        "explanation": result["explanation"],
+        "species": result["species"],
     }
+
+
+@app.post("/rag/query")
+async def rag_query_proxy(req: RagQueryRequest):
+    """Proxy to RAG service — POST /rag/query on port 8005."""
+    from feature_builder.rag_client import query_rag_async
+    result = await query_rag_async(req.query, req.top_k)
+    if not result:
+        raise HTTPException(status_code=503, detail="RAG service unavailable at " + RAG_BASE_URL)
+    return result
+
+
+@lru_cache(maxsize=500)
+def _cached_species_context(species_code: str, common_name: str) -> str:
+    from feature_builder.rag_client import query_rag, species_context_query
+    q = species_context_query(species_code, common_name)
+    result = query_rag(q, top_k=3)
+    return json.dumps(result) if result else "{}"
+
+
+@app.get("/species/{species_code}/context")
+async def get_species_context(species_code: str, common_name: str = Query(default="")):
+    """Species habitat/conservation context via RAG query (cached)."""
+    name = common_name or species_code.replace("_", " ")
+    raw = _cached_species_context(species_code, name)
+    data = json.loads(raw)
+    if not data:
+        pool = await get_db()
+        async with pool.acquire() as conn:
+            row = await conn.fetchrow(
+                "SELECT common_name, is_endemic, is_threatened, threat_category, "
+                "altitude_min_m, altitude_max_m FROM nepal_species_reference WHERE species_code = $1",
+                species_code,
+            )
+        if row:
+            return {
+                "species_code": species_code,
+                "common_name": row["common_name"],
+                "is_endemic": row["is_endemic"],
+                "is_threatened": row["is_threatened"],
+                "threat_category": row["threat_category"],
+                "altitude_min_m": row["altitude_min_m"],
+                "altitude_max_m": row["altitude_max_m"],
+                "source": "database",
+            }
+        raise HTTPException(status_code=404, detail="Species not found")
+    return {"species_code": species_code, "common_name": name, "rag": data, "source": "rag"}
+
+
+@app.get("/recordings/{recording_id}/enrichment")
+async def get_recording_enrichment(recording_id: str):
+    """Poll async RAG enrichment results for a recording."""
+    from db.helpers import get_species_enrichment
+    pool = await get_db()
+    try:
+        rec_uuid = uuid.UUID(recording_id)
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid recording ID")
+
+    async with pool.acquire() as conn:
+        rows = await get_species_enrichment(conn, recording_id)
+    return {"recording_id": recording_id, "enrichment": rows, "ready": len(rows) > 0}
 
 
 @app.get("/map/pins")
@@ -295,6 +386,8 @@ async def get_recording_detail(recording_id: str):
             "recorded_at": recording['recorded_at'].isoformat() if recording['recorded_at'] else None,
             "health_score": recording['health_score'],
             "processing_status": recording['processing_status'],
+            "model_version": recording["model_version"] if "model_version" in recording else None,
+            "confidence_margin": recording["confidence_margin"] if "confidence_margin" in recording else None,
         },
         "species": [
             {
