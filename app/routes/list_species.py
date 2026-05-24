@@ -3,7 +3,7 @@ import tempfile
 import logging
 from pathlib import Path
 
-from app.utils import detect_species
+from app.utils import detect_species, Species
 from . import router
 
 
@@ -29,7 +29,8 @@ async def species(audio: UploadFile = File(...)):
     logger.info(f"Audio is stored in {temp_path} temporarily")
 
     try:
-        species_data = detect_species(temp_path)
+        raw_data = detect_species(temp_path)
+        species_data = [Species.from_row(row) for row in raw_data]
     except Exception as e:
         logger.exception("Failed to detect species %s", e)
         return {"status": "failed", "data": e}

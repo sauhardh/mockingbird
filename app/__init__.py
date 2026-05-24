@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 import logging
 
-from app.routes.list_species import router
+from app.routes import router
+# from app.routes import forest_health
 
 logging.basicConfig(
     level=logging.INFO, format="    [%(levelname)s]: %(name)s -> %(message)s"

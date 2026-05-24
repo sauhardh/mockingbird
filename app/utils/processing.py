@@ -1,4 +1,40 @@
+from typing import Any
 from collections import defaultdict
+from pydantic import BaseModel, model_validator
+
+
+class Species(BaseModel):
+    audio_path: str
+    start_time: float
+    end_time: float
+    species_label: str
+    confidence: float
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate_row(cls, value: Any) -> Any:
+        if isinstance(value, (list, tuple)):
+            if len(value) < 5:
+                raise ValueError("Species list must have at least 5 elements")
+            return {
+                "audio_path": value[0],
+                "start_time": value[1],
+                "end_time": value[2],
+                "species_label": value[3],
+                "confidence": value[4],
+            }
+        return value
+
+    @classmethod
+    def from_row(cls, row: list | tuple) -> "Species":
+        return cls(
+            audio_path=row[0],
+            start_time=row[1],
+            end_time=row[2],
+            species_label=row[3],
+            confidence=row[4],
+        )
+
 
 """
 species:
@@ -14,8 +50,27 @@ species:
 def preprocess_species(predictions: list, threshold=0.6):
     filtered = []
 
-    for row in predictions:
-        (audio_path, start_time, end_time, species_label, confidence) = row
+    for item in predictions:
+        if isinstance(item, Species):
+            audio_path = item.audio_path
+            start_time = item.start_time
+            end_time = item.end_time
+            species_label = item.species_label
+            confidence = item.confidence
+        elif isinstance(item, (list, tuple)):
+            if len(item) < 5:
+                continue
+            (audio_path, start_time, end_time, species_label, confidence) = item[:5]
+        elif isinstance(item, dict):
+            audio_path = item.get("audio_path")
+            start_time = item.get("start_time")
+            end_time = item.get("end_time")
+            species_label = item.get("species_label")
+            confidence = item.get("confidence")
+            if None in (audio_path, start_time, end_time, species_label, confidence):
+                continue
+        else:
+            continue
 
         if confidence < threshold:
             continue
@@ -44,7 +99,7 @@ def merge_species(predictions: list):
     species_map = defaultdict(list)
 
     for pred in predictions:
-        species_id = pred["scientic_name"]
+        species_id = pred["scientific_name"]
         species_map[species_id].append(pred)
 
     merged = []
