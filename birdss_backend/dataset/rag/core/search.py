@@ -1,7 +1,7 @@
 import ollama
 
 class Search:
-    def __init__(self, llm_model="huihui_ai/qwen2.5-abliterate:7b"):
+    def __init__(self, llm_model="llama3.2:1b"):
         self.model = llm_model
 
     def ask(self, query: str, retrieved_results: list) -> dict:

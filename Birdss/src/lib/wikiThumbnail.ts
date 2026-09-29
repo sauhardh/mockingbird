@@ -37,29 +37,53 @@ export async function fetchWikiInfo(title: string): Promise<WikiInfo> {
   }
 }
 
-// Take a string like "Shorea robusta (sal)" and produce candidate Wikipedia titles
-// in priority order: scientific name first (more unique), then the parenthetical
-// common name, then the raw string.
+// Take a string like "Shorea robusta (sal)" or "fruits, seeds, insects" or "seeds"
+// and produce candidate Wikipedia titles in priority order.
 export function wikiCandidatesFromLabel(label: string): string[] {
-  const trimmed = label.trim();
+  // Strip outer quotes, brackets, bullets
+  let trimmed = label.replace(/^[\s*•\-[\]()"'`]+|[\s*•\-[\]()"'`]+$/g, "").trim();
+  if (!trimmed) return [];
+
   const candidates: string[] = [];
+
+  // If there are parens like "Shorea robusta (sal tree)"
   const parenMatch = trimmed.match(/^([^(]+?)\s*\(([^)]+)\)\s*$/);
   if (parenMatch) {
-    candidates.push(parenMatch[1].trim()); // before the parens (often scientific name)
-    candidates.push(parenMatch[2].trim()); // inside the parens (often common name)
+    candidates.push(parenMatch[1].trim()); // e.g. "Shorea robusta"
+    candidates.push(parenMatch[2].trim()); // e.g. "sal tree"
   }
+
+  // Raw cleaned title
   candidates.push(trimmed);
-  // Dedupe while preserving order.
+
+  // If plural ending in 's', try singular (e.g. "fruits" -> "fruit", "berries" -> "berry", "insects" -> "insect")
+  if (trimmed.endsWith("ies") && trimmed.length > 4) {
+    candidates.push(trimmed.slice(0, -3) + "y");
+  } else if (trimmed.endsWith("s") && !trimmed.endsWith("ss") && trimmed.length > 3) {
+    candidates.push(trimmed.slice(0, -1));
+  }
+
+  // Capitalize first letter (Wikipedia page titles are case-sensitive on first letter)
+  const capitalized = trimmed.charAt(0).toUpperCase() + trimmed.slice(1);
+  candidates.push(capitalized);
+
+  // If it's a tree name without "tree", also try adding "tree" (e.g. "Sal" -> "Sal tree")
+  if (!trimmed.toLowerCase().includes("tree") && trimmed.split(" ").length <= 2) {
+    candidates.push(`${capitalized} tree`);
+  }
+
+  // Dedupe while preserving order
   return Array.from(new Set(candidates.filter(Boolean)));
 }
 
 export async function fetchBestWikiInfo(label: string): Promise<WikiInfo> {
-  for (const candidate of wikiCandidatesFromLabel(label)) {
+  const candidates = wikiCandidatesFromLabel(label);
+  for (const candidate of candidates) {
     const info = await fetchWikiInfo(candidate);
     if (info.thumb) return info;
   }
-  // No thumbnail anywhere — still return the first non-empty result so we have URL/extract.
-  for (const candidate of wikiCandidatesFromLabel(label)) {
+  // No thumbnail found — return first with extract or URL
+  for (const candidate of candidates) {
     const info = await fetchWikiInfo(candidate);
     if (info.url || info.extract) return info;
   }

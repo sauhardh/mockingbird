@@ -321,7 +321,7 @@ class ForestRequest(BaseModel):
 
 @router.post("/forest")
 async def forest(req: ForestRequest):
-    filtered = preprocess_species(req.species, 0.6)
+    filtered = preprocess_species(req.species, 0.1)
 
     merged = merge_species(filtered)
 

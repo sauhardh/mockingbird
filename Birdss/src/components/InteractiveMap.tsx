@@ -58,9 +58,15 @@ export function InteractiveMap({ lat, lon, onChange }: Props) {
         attributionControl: false
       }).setView([initialLat, initialLon], zoom);
 
-      // Add stylish terrain-like tiles (CartoDB Positron or similar clean tiles)
-      L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png", {
-        maxZoom: 19
+      // Free OpenStreetMap tiles (no API key required, no watermark)
+      const cartoKey = import.meta.env.VITE_CARTO_API_KEY as string | undefined;
+      const tileUrl = cartoKey
+        ? `https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=${cartoKey}`
+        : "https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+      L.tileLayer(tileUrl, {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
       // Custom Zoom Control at bottom right

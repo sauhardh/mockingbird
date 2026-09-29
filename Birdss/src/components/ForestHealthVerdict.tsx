@@ -52,15 +52,57 @@ function tryParse(raw: string | null): { assessment: ForestHealthAssessment | nu
       const parsed = fn();
       const assessment = parsed?.forest_health_assessment ?? null;
       if (assessment && typeof assessment === "object") {
+        // Sanitize health_label: extract pure status (Excellent, Good, Fair, Poor, Critical)
+        // or discard placeholder prompt brackets.
+        let rawLabel = String(assessment.health_label ?? "").trim();
+        let cleanLabel = "";
+        for (const candidate of ["Excellent", "Good", "Fair", "Poor", "Critical"]) {
+          if (new RegExp(`\\b${candidate}\\b`, "i").test(rawLabel)) {
+            cleanLabel = candidate;
+            break;
+          }
+        }
+
+        // Sanitize ecology_type: remove prompt brackets like '[dense broadleaf canopy]'
+        let cleanEcology = String(assessment.ecology_type ?? "")
+          .replace(/^[\s*•\-[\]()"'`]+|[\s*•\-[\]()"'`]+$/g, "")
+          .trim();
+        if (cleanEcology.toLowerCase().includes("one short phrase describing")) {
+          cleanEcology = "";
+        }
+
+        // Helper to flatten arrays and split comma-joined items (e.g. "fruits, seeds, insects")
+        const sanitizeItems = (raw: unknown): string[] => {
+          if (!Array.isArray(raw)) return [];
+          const list: string[] = [];
+          for (const item of raw) {
+            const str = String(item ?? "").replace(/^[\s*•\-[\]()"'`]+|[\s*•\-[\]()"'`]+$/g, "").trim();
+            if (!str || str.toLowerCase().includes("list 3-6") || str.toLowerCase().includes("tree species")) continue;
+            // Split comma lists if model grouped them into a single string
+            if (str.includes(",") && !str.includes("(") && !str.includes(")")) {
+              for (const part of str.split(",")) {
+                const sub = part.replace(/^[\s*•\-[\]()"'`]+|[\s*•\-[\]()"'`]+$/g, "").trim();
+                if (sub) list.push(sub);
+              }
+            } else {
+              list.push(str);
+            }
+          }
+          return Array.from(new Set(list));
+        };
+
+        const parsedTrees = sanitizeItems(assessment.expected_trees);
+        const parsedFood = sanitizeItems(assessment.expected_food_sources);
+
         return {
           assessment: {
-            health_label: String(assessment.health_label ?? "Unknown"),
-            verdict: String(assessment.verdict ?? ""),
-            expected_trees: Array.isArray(assessment.expected_trees) ? assessment.expected_trees.map(String) : [],
-            expected_food_sources: Array.isArray(assessment.expected_food_sources)
-              ? assessment.expected_food_sources.map(String)
-              : [],
-            ecology_type: String(assessment.ecology_type ?? ""),
+            health_label: cleanLabel || "Unknown",
+            verdict: String(assessment.verdict ?? "")
+              .replace(/^[\s*•\-[\]()"'`]+|[\s*•\-[\]()"'`]+$/g, "")
+              .trim(),
+            expected_trees: parsedTrees,
+            expected_food_sources: parsedFood,
+            ecology_type: cleanEcology,
             key_strengths: Array.isArray(assessment.key_strengths) ? assessment.key_strengths.map(String) : [],
             key_concerns: Array.isArray(assessment.key_concerns) ? assessment.key_concerns.map(String) : [],
           },
@@ -135,7 +177,7 @@ export function ForestHealthVerdict({ analysis, metrics, loading, error }: Props
         </div>
         <span
           className={cn(
-            "text-lg md:text-xl font-display font-bold uppercase tracking-wider px-5 py-2.5 md:px-6 md:py-3 rounded-2xl border-2 whitespace-nowrap shadow-md",
+            "text-base md:text-lg font-display font-bold uppercase tracking-wider px-4 py-2 md:px-5 md:py-2.5 rounded-2xl border-2 shadow-md max-w-full break-words text-center",
             labelTone[label] ?? labelTone.Unknown,
           )}
         >

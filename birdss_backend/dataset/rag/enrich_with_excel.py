@@ -198,7 +198,7 @@ Output ONLY the final completed profile in this exact format. Do not add convers
     try:
         chat_completion = client.chat.completions.create(
             messages=[{"role": "user", "content": prompt}],
-            model="llama-3.1-8b-instant",
+            model=os.getenv("GROQ_MODEL", "openai/gpt-oss-20b"),
             temperature=0.1,
         )
         

@@ -52,22 +52,27 @@ export async function fetchForestMetrics(loc: string, result: AnalyzeResult): Pr
     species: toForestSpecies(result),
   };
 
-  const res = await fetch(`${BASE_URL}/forest`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
+  try {
+    const res = await fetch(`${BASE_URL}/forest`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-  if (!res.ok) return null;
-  const data = await res.json();
+    if (!res.ok) return null;
+    const data = await res.json();
 
-  return {
-    unique_species: data.unique_species ?? result.speciesDetected.length,
-    shannon_idx: data.shannon_idx ?? 0,
-    dominance: data.dominance ?? { dominance_score: 0, dominant_species: null },
-    native_ratio: data.native_ratio ?? 0,
-    forest_dependency: data.forest_dependency ?? 0,
-    rarity_score: data.rarity_score ?? 0,
-    composite_health: data.composite_health ?? { score: 0, label: "Unknown" },
-  };
+    return {
+      unique_species: data.unique_species ?? result.speciesDetected.length,
+      shannon_idx: data.shannon_idx ?? 0,
+      dominance: data.dominance ?? { dominance_score: 0, dominant_species: null },
+      native_ratio: data.native_ratio ?? 0,
+      forest_dependency: data.forest_dependency ?? 0,
+      rarity_score: data.rarity_score ?? 0,
+      composite_health: data.composite_health ?? { score: 0, label: "Unknown" },
+    };
+  } catch (err) {
+    console.warn("Backend /forest endpoint unreachable:", err);
+    return null;
+  }
 }

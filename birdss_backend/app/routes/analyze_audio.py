@@ -170,7 +170,8 @@ async def analyze_audio(
             except Exception:
                 logger.warning("Failed to remove temp file: %s", extra)
 
-    filtered = preprocess_species(raw_data, 0.6)
+    # BirdNET detection threshold (0.25 captures quieter or distant birds without excessive noise)
+    filtered = preprocess_species(raw_data, 0.25)
     merged = merge_species(filtered)
 
     rag_map = await _enrich_species_with_rag(merged)

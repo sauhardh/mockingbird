@@ -1,4 +1,11 @@
 import os
+# ── Force CPU-only mode BEFORE torch/CUDA is imported ──────────────────────
+# This prevents a PyTorch CUDA internal assert:
+#   "fast_1 >= fast_0 INTERNAL ASSERT FAILED at ApproximateClock.cpp"
+# which fires when CUDA initializes on certain kernel/hardware combos.
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+# ───────────────────────────────────────────────────────────────────────────
 import shutil
 import tempfile
 from contextlib import asynccontextmanager
@@ -65,7 +72,7 @@ async def lifespan(app: FastAPI):
         print("[RAG] No existing index found. Use /rag/ingest to add documents.")
 
     print("[RAG] Initializing local Ollama search engine...")
-    search_engine = Search(llm_model="huihui_ai/qwen2.5-abliterate:7b")
+    search_engine = Search(llm_model=os.getenv("OLLAMA_MODEL", "llama3.2:1b"))
 
     print("[RAG] RAG system ready (Local Mode)!")
     yield

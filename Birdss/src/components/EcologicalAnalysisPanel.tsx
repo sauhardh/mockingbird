@@ -227,7 +227,7 @@ export function EcologicalAnalysisPanel({ analysis, loading, error }: Props) {
       {loading ? (
         <div className="flex items-center gap-3 py-6 justify-center text-sm text-muted-foreground animate-pulse">
           <Activity className="h-5 w-5 text-primary animate-spin" />
-          <span>Generating ecological analysis using Groq Llama 3...</span>
+          <span>Generating ecological analysis...</span>
         </div>
       ) : error ? (
         <div className="rounded-2xl border border-destructive/20 bg-destructive/10 p-4 text-sm text-destructive">

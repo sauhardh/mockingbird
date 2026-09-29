@@ -2,6 +2,23 @@
 
 This document describes what to put in the backend and frontend `.env` files and how to install and run the backend, the isolated RAG service, and the frontend (Vite).
 
+## 🚀 Quick Start (One Command)
+
+From the project root, run all services (Backend + RAG + Frontend) simultaneously with:
+
+```bash
+./run.sh
+```
+
+Or using `npm` / `python`:
+```bash
+npm run dev
+# or
+python3 run.py
+```
+
+Press `Ctrl+C` to stop all services cleanly at once.
+
 **Env Files**
 - **Backend (.env)**: create a file at `birdss_backend/.env` with the following entries:
 
@@ -18,7 +35,7 @@ VITE_BIRD_API_URL="http://127.0.0.1:8000"
 VITE_RAG_API_URL="http://127.0.0.1:8005"
 VITE_OPENWEATHER_KEY="your key"
 VITE_GROQ_API_KEY="your key"
-VITE_GROQ_MODEL="llama-3.1-8b-instant"
+VITE_GROQ_MODEL="openai/gpt-oss-20b"
 # Free MAP_KEY at https://firms.modaps.eosdis.nasa.gov/api/map_key/ — leave blank to fall back to AI fire risk
 VITE_NASA_FIRMS_KEY=""
 ```

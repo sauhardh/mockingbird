@@ -1,0 +1,10 @@
+{
+  "name": "mockingbird",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mockingbird - Ecological sound monitoring and species identification",
+  "scripts": {
+    "dev": "./run.sh",
+    "start": "./run.sh"
+  }
+}

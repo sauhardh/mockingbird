@@ -24,7 +24,9 @@ class EmbeddingPipeline:
     ):
         self.chunk_size = chunk_size
         self.overlap_size = chunk_overlap
-        self.model = SentenceTransformer(model_name)
+        # Explicitly use CPU — avoids CUDA ApproximateClock assertion crash
+        # on kernels where the hardware TSC is non-monotonic.
+        self.model = SentenceTransformer(model_name, device="cpu")
         self.enc = tiktoken.get_encoding(token_model)
         print(f"[INFO] Embedding model loaded: {model_name}")
 

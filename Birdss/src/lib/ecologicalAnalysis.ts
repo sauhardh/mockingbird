@@ -1,8 +1,5 @@
 import type { ForestMetrics } from "@/lib/forestApi";
-
-const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY ?? "";
-const GROQ_MODEL = import.meta.env.VITE_GROQ_MODEL ?? "llama3-8b-8192";
-const GROQ_BASE_URL = "https://api.groq.com/openai/v1";
+import { chatCompletion } from "@/lib/llmClient";
 
 export interface EcologicalAnalysisInput {
   location: string;
@@ -78,9 +75,6 @@ function repairAndParse(raw: string): { parsed: Record<string, unknown> | null; 
 }
 
 export async function generateEcologicalAnalysis(input: EcologicalAnalysisInput): Promise<string | null> {
-  if (!GROQ_API_KEY) {
-    throw new Error("VITE_GROQ_API_KEY is not set — ecological analysis cannot be generated. Add it to Birdss/.env and restart the dev server.");
-  }
 
   // Groq free tier caps at 6000 tokens/minute. Full RAG chunks (index, distance, full text)
   // blow past that quickly with >3 species. Trim to the essentials: top 2 chunks per species,
@@ -97,11 +91,16 @@ export async function generateEcologicalAnalysis(input: EcologicalAnalysisInput)
   const chunkText = JSON.stringify(trimmedChunks, null, 2);
 
   const systemPrompt = `You are an expert ecological analysis assistant specializing in Nepalese bird biodiversity and forest ecosystem health.
-Your task is to analyze the observed species, computed ecological metrics, and RAG-retrieved ecological knowledge, then compile a highly detailed, structured analysis.
+Your task is to analyze the observed species, computed ecological metrics, and RAG-retrieved ecological knowledge, then compile a structured analysis.
 
-CRITICAL: You MUST strictly return your response as a single, valid JSON object following the exact schema below.
-Do NOT include any introduction, explanation, markdown formatting, or code blocks. Return ONLY the JSON object.
-GUIDELINE: "Do not hallucinate". Rely strictly on the provided context, ecological metrics, and established ornithological facts.
+CRITICAL INSTRUCTIONS:
+1. Return strictly a single, valid JSON object following the schema below.
+2. DO NOT output placeholder brackets like "[Dominant habitat]" or "[Critical — must align...]". Replace EVERY bracketed description with real, plain-English text or reasonable ecological values.
+3. For "health_label", output ONLY ONE WORD from: "Excellent", "Good", "Fair", "Poor", "Critical" (no brackets, no explanation).
+4. For "expected_trees", output 3-6 individual tree names as separate strings in the array (e.g. ["Shorea robusta", "Rhododendron arboreum", "Schima wallichii", "Castanopsis indica", "Pinus roxburghii"]).
+5. For "expected_food_sources", output 3-6 individual food items as separate simple nouns in the array (e.g. ["wild figs", "seeds", "caterpillars", "flower nectar", "insects"]). DO NOT lump them into a single string.
+6. For "ecology_type", output a clean phrase without brackets (e.g. "subtropical mixed broadleaf forest", "temperate pine-oak woodland", "degraded forest edge").
+7. If 0 or few species are detected, infer expected trees and food sources typical of the region (${input.location || "Nepal forest"}).
 
 JSON SCHEMA TO CONFORM TO:
 {
@@ -113,85 +112,85 @@ JSON SCHEMA TO CONFORM TO:
   },
   "results": [
     {
-      "species_id": "[Scientific name of the species]",
-      "common_name": "[Common name of the species]",
-      "family": "[Bird family, e.g. Columbidae]",
-      "order": "[Bird order, e.g. Columbiformes]",
+      "species_id": "Scientific name",
+      "common_name": "Common name",
+      "family": "Family name",
+      "order": "Order name",
       "habitat_profile": {
-        "type_of_forest": "[Specific forest habitat in Nepal]",
+        "type_of_forest": "Specific forest habitat in Nepal",
         "habitat_density": {
-          "level": [Density level 1 (dense), 2 (semi-open), 3 (open)],
-          "label": "[Label corresponding to level]"
+          "level": 2,
+          "label": "semi-open"
         },
-        "tree_preference": "[Preferred tree species or type of trees if known, or null]",
-        "environment_type": "[terrestrial, arboreal, or wetland]",
+        "tree_preference": "Preferred tree type or null",
+        "environment_type": "terrestrial",
         "elevation_range": {
-          "min_m": [minimum elevation in meters as number or null],
-          "max_m": [maximum elevation in meters as number or null],
-          "note": "[Brief note about altitudinal zones in Nepal]"
+          "min_m": 1200,
+          "max_m": 2400,
+          "note": "Subtropical to temperate zone"
         }
       },
       "diet": {
-        "trophic_niche": "[e.g. omnivore, frugivore, granivore, invertivore]",
-        "primary_food": ["[list of primary foods, e.g. seeds, fruits, insects]"],
-        "feeding_style": "[e.g. ground foraging, canopy foraging]"
+        "trophic_niche": "omnivore",
+        "primary_food": ["seeds", "fruits", "insects"],
+        "feeding_style": "canopy foraging"
       },
       "seasonal_presence": {
-        "resident_type": "[e.g. year-round, winter visitor, summer migrant]",
-        "months_observed": ["[list of months observed in Nepal, e.g. January, February...]"],
-        "peak_season": "[Peak season label or null]"
+        "resident_type": "year-round resident",
+        "months_observed": ["January", "April", "July", "October"],
+        "peak_season": "Spring"
       },
       "climate_profile": {
-        "climate_zone": "[e.g. subtropical, temperate, subalpine]",
-        "migration_strategy": "[e.g. sedentary, altitudinal migrant, long-distance migrant]",
-        "migration_score": [Migration score as number or null]
+        "climate_zone": "subtropical",
+        "migration_strategy": "sedentary",
+        "migration_score": 1.0
       },
       "distribution": {
         "country": "Nepal",
-        "provinces": ["[provinces in Nepal where found, e.g. Bagmati, Gandaki...]"],
-        "total_localities": [estimated or matched localities count as number],
+        "provinces": ["Bagmati", "Gandaki"],
+        "total_localities": 15,
         "bounding_box": {
-          "lat_min": [approximate min latitude in Nepal],
-          "lat_max": [approximate max latitude in Nepal],
-          "lon_min": [approximate min longitude in Nepal],
-          "lon_max": [approximate max longitude in Nepal]
+          "lat_min": 27.5,
+          "lat_max": 28.2,
+          "lon_min": 85.1,
+          "lon_max": 85.9
         }
       },
       "observation_stats": {
-        "total_sightings": [number of observations in database or reasonable estimate],
-        "total_individuals": [number of individuals recorded or reasonable estimate],
-        "unique_observers": [reasonable estimated number or null],
-        "first_recorded": [earliest record year as number or null],
-        "last_recorded": [latest record year as number or null]
+        "total_sightings": 45,
+        "total_individuals": 78,
+        "unique_observers": 12,
+        "first_recorded": 2018,
+        "last_recorded": 2024
       },
       "physical": {
-        "body_mass_grams": [average body mass in grams as number],
-        "lifestyle": "[e.g. insessorial, terrestrial, aerial or null]"
+        "body_mass_grams": 45.0,
+        "lifestyle": "arboreal"
       },
-      "source_file": "[Scientific name or primary source]",
-      "confidence_score": [confidence rating between 0 and 1, e.g., 0.85]
+      "source_file": "Ecosystem Assessment",
+      "confidence_score": 0.85
     }
   ],
   "summary": {
     "total_species_found": ${input.species.length},
-    "common_habitat": "[Dominant or common habitat across all detected species]",
-    "common_diet": ["[List of most common food items across species]"],
-    "common_season": "[Dominant seasonal presence type]",
-    "common_climate": "[Dominant climate zone]",
+    "common_habitat": "Mixed broadleaf forest",
+    "common_diet": ["seeds", "wild berries", "insects"],
+    "common_season": "Year-round",
+    "common_climate": "Subtropical montane",
     "density_range": {
-      "min_level": [min habitat density level among species],
-      "max_level": [max habitat density level among species],
-      "label": "[e.g., semi-open to open habitats]"
+      "min_level": 1,
+      "max_level": 3,
+      "label": "semi-open to dense canopy"
     }
   },
   "forest_health_assessment": {
-    "health_label": "[One of: Excellent, Good, Fair, Poor, Critical — must align with composite_health.label from the metrics provided]",
-    "verdict": "[2-3 sentence plain-English assessment of the forest's health, synthesizing the composite_health score, dominance, native ratio, forest dependency, and rarity. If only generalist/edge species (e.g. crows, mynas, common bulbuls) are present, explicitly say the forest shows signs of degradation or disturbance. If diverse forest-dependent species are present, say the forest is healthy and well-structured.]",
-    "expected_trees": ["[List 3-6 tree species or tree types that SHOULD be present based on the bird species detected and their RAG habitat profiles. Use specific names where possible (e.g. 'Shorea robusta (sal)', 'Quercus species (oak)', 'Rhododendron arboreum')]"],
-    "expected_food_sources": ["[List 3-6 specific food items the detected birds need from the ecosystem — combine fruits, seeds, insects, nectar etc. with concrete examples]"],
-    "ecology_type": "[One short phrase describing the forest structure expected from the bird community, e.g. 'dense broadleaf canopy', 'open mixed woodland', 'sparse degraded edge habitat', 'wetland-adjacent forest', 'subtropical rainforest']",
-    "key_strengths": ["[List 1-4 positive ecological signals from the detected species and metrics. Empty list if none.]"],
-    "key_concerns": ["[List 1-4 warning signs — dominance by generalists, low diversity, missing forest-obligate species, low rarity, etc. Empty list if none.]"]
+    "health_label": "${input.metrics.composite_health.label || 'Critical'}",
+    "verdict": "Plain-English assessment of the forest ecosystem based on the detected species and computed metrics.",
+    "expected_trees": ["Shorea robusta", "Rhododendron arboreum", "Schima wallichii", "Castanopsis indica"],
+    "expected_food_sources": ["wild fruits", "insects", "seeds", "nectar"],
+    "ecology_type": "Subtropical mixed broadleaf forest",
+    "key_strengths": ["Presence of native vegetation indicators"],
+    "key_concerns": ["Low overall species diversity observed"]
   },
   "json_repair_flags": {
     "repaired": false,
@@ -220,38 +219,18 @@ ${chunkText}
 `;
 
   try {
-    const res = await fetch(`${GROQ_BASE_URL}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${GROQ_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: GROQ_MODEL,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.1,
-        max_tokens: 4096,
-        response_format: { type: "json_object" },
-      }),
+    const answer = await chatCompletion({
+      messages: [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
+      ],
+      temperature: 0.1,
+      max_tokens: 4096,
+      json_mode: true,
     });
 
-    if (!res.ok) {
-      const errText = await res.text();
-      console.error("Groq API error:", errText);
-      // Surface the actual Groq error so the EcologicalAnalysisPanel can display it instead of "No analysis available".
-      throw new Error(`Groq ${res.status}: ${errText.slice(0, 300)}`);
-    }
-
-    const data = (await res.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
-
-    const answer = data.choices?.[0]?.message?.content?.trim();
     if (!answer) {
-      throw new Error("Groq returned an empty response (no message content). Likely token limit or model issue.");
+      throw new Error("LLM returned an empty response (no message content).");
     }
 
     // Multi-strategy repair pipeline
